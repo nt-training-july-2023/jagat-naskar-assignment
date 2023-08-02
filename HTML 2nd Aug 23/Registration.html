@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>Register Form Start</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+
+
+        <form id="signup-form" action="/register" method="post">
+            <div class="form-header">
+                Registration
+                <hr/>
+            </div>
+            <div class="form-body">
+                <div id="Parent">
+                  <div id="child">
+                    <label> Full Name </label><br>  
+                    <input type="text" name="fullname" id="f1" size="15" placeholder="Enter Your name"/> 
+                  </div>
+                  <div id="child">
+                    <label> Username </label><br>   
+                    <input type="text" name="username" size="15" id="f1" placeholder="Enter your username"/> <br> <br>  
+                  </div>
+                </div>
+                <div id="Parent">
+                  <div id="child">
+                    <label> Email </label><br>  
+                    <input type="email" name="email" id="f1" size="22" placeholder="Enter Your email"/> 
+                  </div>
+                  <div id="child">
+                    <label> Phone number </label><br>   
+                    <input type="number" name="Phone" size="10" id="f1" placeholder="Enter your number"/> <br> <br>  
+                  </div>
+                </div>
+                <div id="Parent">
+                  <div id="child">
+                    <label> Password </label><br>  
+                    <input type="password" name="password" id="f1" size="20" placeholder="Enter Your password"/> 
+                  </div>
+                  <div id="child">
+                    <label> Confirm Password </label><br>   
+                    <input type="password" name="conPassword" id="f1" size="20" placeholder="Confirm your password"/> <br> <br>  
+                  </div>
+                </div>
+                <div id="Parent">
+                  <div id="child1">
+                    <label> Gender </label><br><br>
+                    <input type="radio" name="radio-group" id="male" value="Male" checked />
+                    <label for="male">Male</label>
+                    <input type="radio" name="radio-group" id="female" value="Female" checked />
+                    <label for="female">Female</label>
+                    <input type="radio" name="radio-group" id="other" value="other" checked />
+                    <label for="other">Prefer not to say</label><br><br>
+                  </div>
+                </div>
+                <button type="button" id="register">Register</button>
+            </div>
+        </form>
+
+
+  </body>
+</html>
