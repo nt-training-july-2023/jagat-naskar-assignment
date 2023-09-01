@@ -1,0 +1,30 @@
+/* Admin Header Styles */
+.admin-header {
+    background-color: #000000;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 96vw;
+    height: 3vh;
+  }
+  
+  .admin-header h1 {
+    margin: 0;
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  
+  .admin-header p {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.8;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .admin-header {
+      padding: 15px;
+    }
+  }
+  

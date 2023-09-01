@@ -1,22 +1,34 @@
-import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "../style/Login.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from 'react';
+import CustomAlert from "./CustomAlert";
+
 
 const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const[message, setMessage] = useState("");
   const [post, setPost] = useState({ userName: "", password: "" });
-  let navigate = useNavigate();
+  let navigatee = useNavigate();
 
-
+  const handleShowAlert = () => {
+    setShowAlert(true);
+  };
+  const handleCloseAlert=()=>{
+    setShowAlert(false);
+  }
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    
+
+   
+
+    //validating
     if (username.trim() === "") {
       setError("Username is required");
     } else if (password.trim() === "") {
@@ -26,6 +38,7 @@ const Login = (props) => {
       setIsSubmitted(true);
       post.userName = username;
       post.password = password;
+
       // Backend login logic here...
       setPost({ ...post });
       console.log("Login data:", username, password);
@@ -36,15 +49,21 @@ const Login = (props) => {
           post
         );
         console.log(res.data);
-        if (res.data === true) {
-          navigate("/home");
-        } else if(res.data === false) {
-          //alert("UserName or Password Incorect");
-          toast.warning("UserName or Password Incorect!!!");
-          resetForm();
+        if (res.data === "true_admin") {
+          navigatee("/adminHome");
+        }else if (res.data === "true_member") {
+            navigatee("/memberHome");
+        }
+        else if (res.data === "false") {
+            //showing User is not valid
+            handleShowAlert();
+            setMessage("Invalid Credentials!!!")
+            resetForm();
         }
       } catch (e) {
-        alert(e);
+         //showing Backend is not connected through CustomAlert Box
+        handleShowAlert(); //ShowAlert == true
+        setMessage(e.message); //setting message for not having connection
       }
     }
   };
@@ -57,16 +76,16 @@ const Login = (props) => {
   return (
     <div className="login-body">
       <div className="head">
-        <h1>Feedback Management System</h1>
+        <h1>Greviance Management System</h1>
       </div>
       <div className="login-page">
         <h2>Login</h2>
         <div className="error1">
           {error && <p className="error-message">{error}</p>}
         </div>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin} method='post'>
           <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label id="label-username">Username</label>
             <input
               type="text"
               id="username"
@@ -79,7 +98,7 @@ const Login = (props) => {
             )}
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label id="label-password">Password</label>
             <input
               type="password"
               id="password"
@@ -91,9 +110,12 @@ const Login = (props) => {
               <p className="error-message">Password is required</p>
             )}
           </div>
-
-          <button type="submit">Login</button>
-          <ToastContainer/>
+          {
+            showAlert &&
+              <CustomAlert message = {message} handleCloseAlert={handleCloseAlert}/>
+          }
+          
+          <button type="submit" >Login</button>
         </form>
       </div>
     </div>

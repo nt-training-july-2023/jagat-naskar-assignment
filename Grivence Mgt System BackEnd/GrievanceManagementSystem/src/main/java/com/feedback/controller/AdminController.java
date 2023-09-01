@@ -12,13 +12,13 @@
 //
 //@RestController
 //public class AdminController {
-//	  @Autowired
-//	  private UserService userService;
-//	  @Autowired
-//	  private RoleService roleService;
-//	  @GetMapping("/users?={role}")
-//	  public List<User> getUsers(@RequestParam int role){
-//	     return userService.getUsersByRole(role);
-//	  }
+//    private UserService userService;
+//    @Autowired
+//    @Autowired
+//    private RoleService roleService;
+//    @GetMapping("/users?={role}")
+//    public List<User> getUsers(@RequestParam int role){
+//    return userService.getUsersByRole(role);
+//  }
 //}
 

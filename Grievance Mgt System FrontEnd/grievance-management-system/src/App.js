@@ -1,7 +1,10 @@
 import './App.css';
 import Login from './Components/CommonComponents/Login';
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
-import Home from './Components/Home';
+import AdminHome from './Components/AdminHome';
+import NewUser from './Components/CommonComponents/NewUser';
+import Ticket from './Components/Ticket';
+import AdminSidebar from './Components/AdminSidebar';
 
 const routtee = createBrowserRouter(
   createRoutesFromElements(
@@ -16,14 +19,19 @@ const routtee = createBrowserRouter(
     // </Route>
     <Route>
     <Route path='/' element={<Login/>}/>
-    <Route path='/home' element={<Home/>}/>
+    <Route path='/adminHome' element={<AdminSidebar/>}/>
     </Route>
   )
 )
 function App() {
   return (
     <div className="App">
-      <RouterProvider router={routtee} />
+      {/* <RouterProvider router={routtee} /> */}
+      {/* <Practise/> */}
+      {/* <Ticket/> */}
+      <NewUser/>
+      {/* <AdminSidebar/> */}
+      {/* <Login/> */}
     </div>
   );
 }

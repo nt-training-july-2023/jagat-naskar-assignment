@@ -1,0 +1,71 @@
+/*sidebar parent class*/
+.sidebar-parent {
+  display: flex; /* Display the children elements in a flex container */
+  
+}
+
+/* Admin Content */
+.admin-content {
+  height: 83vh;
+  flex: 1; /* Allow the admin content to take up the remaining space */
+  padding: 4% 4% 4% 4%;
+  background-color: #51555c63;
+  overflow: hidden;
+}
+
+/* Menu Styles */
+.sidebar-parent .menu {
+  width: 20%; /* Menu takes up the full width */
+  height: 100vh;
+  background-color: #000000;
+}
+
+.menu li {
+  margin-bottom: 10px;
+  background-color: #06030f;
+  color: rgb(255, 255, 255);
+  font-style: italic;
+  font-size:medium;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #e30000;
+  padding: 10px;
+  border-radius: 5px;
+  /* transition: background-color 0.3s, color 0.3s; */
+}
+
+
+
+/* Danger (Logout) Option */
+.menu a.danger {
+  color: #ffb8b0; /* Red color for danger items */
+}
+
+.menu a.danger:hover {
+  background-color: #45d02c;
+}
+
+/* Icon Styles */
+.menu svg {
+  margin-right: 10px;
+}
+
+/* Label Styles */
+.menu span {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .menu a {
+    padding: 8px;
+  }
+}
+.ant-menu{
+  background-color: #000000;
+}

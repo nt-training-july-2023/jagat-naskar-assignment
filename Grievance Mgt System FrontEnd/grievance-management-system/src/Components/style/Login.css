@@ -10,12 +10,17 @@
 .login-body .head{
   color: white;
   width: 100%;
-  padding-top: 10px;
+  padding-top: 2%;
   font: bold;
   height: 13%;
   background-color: #240961;
   
 
+}
+.login-body #password{
+  width: 90%;
+  border-color: #000;
+  margin-bottom: 15px;
 }
 @media only screen and (max-width:650px) {
   .login-body .head h1{
@@ -36,8 +41,9 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    padding: 20px;
-    padding-right: 37px;
+    padding: 3%;
+    /* padding: 20px; */
+    /* padding-right: 37px; */
     border: 2px solid rgb(11, 15, 255);
     background: linear-gradient(to right, #000, #240961, rgb(21, 21, 85),#240961, #000);
     text-align: center;
@@ -52,10 +58,10 @@
   }
   
   .login-page input {
-    width: 100%;
-    padding: 10px;
+    width: 90%;
+    padding: 5px;
     margin: 5px 0;
-    border: 1px solid white;
+    border: 1px solid rgb(238, 4, 4);
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.1);
     color: white;
@@ -63,9 +69,8 @@
   }
   
   .login-page button {
-    background-color: white;
-    color: deepblue;
-    border: none;
+    color: rgb(23, 0, 138);
+    border: 1px solid rgb(98, 34, 201);
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
@@ -74,7 +79,7 @@
 
 
   .login-page button:hover {
-    background-color: rgb(25, 37, 204);
+    background-color: rgb(29, 94, 216);
   }
   
   .login-page a {
@@ -88,7 +93,7 @@
   }
 
   .error1{
-    color: red;
+    color: rgb(255, 12, 12);
     font-style: italic;
     font-size: smaller;
   }

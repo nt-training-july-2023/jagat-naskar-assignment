@@ -1,8 +1,15 @@
 package com.feedback.entities;
+
 /**
- * Entity class to define the numbers of roles
+ * Enumeration representing different roles in the system.
  */
 public enum ERole {
-	  ADMIN,
-	  Member
-	}
+    /**
+     * Represents the admin role.
+     */
+    admin,
+    /**
+     * Represents the member role.
+     */
+    member
+}

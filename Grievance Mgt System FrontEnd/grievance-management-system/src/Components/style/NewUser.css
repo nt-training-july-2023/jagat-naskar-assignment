@@ -1,0 +1,80 @@
+.newUser-parent {
+    width: 50%;
+    height: 60%;
+    max-width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: #160657;
+  }
+  
+  .reg-form {
+    background-color: #3a5b484d;
+    padding: 6%;
+    border-radius: 6px;
+    
+  }
+  
+  .reg-heading {
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  
+  .name,
+  .username,
+  .password,
+  .userType,
+  .userDept {
+    display: block;
+    font-weight: bold;
+  }
+  
+  .error1 {
+    color: red;
+    margin: 5px 0;
+  }
+  
+
+.newUser-parent .reg-form .input-user, 
+.label-user{
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: rgba(15, 13, 24, 0.805);
+    margin-right: 16%;
+    
+}
+.newUser-parent .reg-form .input-user{
+  background-color: #edeeefb0;
+  border: 1px solid #8097e2;
+  
+}
+
+  
+  button[type="submit"] {
+    background-color: #101312;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.1s;
+    margin-top: 7%;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #160657;
+  }
+  
+  @media (max-width: 600px) {
+    .newUser-parent {
+      padding: 10px;
+    }
+  
+    input[type="text"],
+    input[type="password"],
+    select,
+    button[type="submit"] {
+      width: 100%;
+    }
+  }
