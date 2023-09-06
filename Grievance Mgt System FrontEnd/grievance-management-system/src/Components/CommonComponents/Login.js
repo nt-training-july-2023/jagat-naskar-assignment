@@ -12,7 +12,7 @@ const Login = (props) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const[message, setMessage] = useState("");
-  const [post, setPost] = useState({ userName: "", password: "" });
+  const [post, setPost] = useState({ email: "", password: "" });
   let navigatee = useNavigate();
 
   const handleShowAlert = () => {
@@ -36,7 +36,7 @@ const Login = (props) => {
     } else {
       setError("");
       setIsSubmitted(true);
-      post.userName = username;
+      post.email = username;
       post.password = password;
 
       // Backend login logic here...
@@ -50,6 +50,7 @@ const Login = (props) => {
         );
         console.log(res.data);
         if (res.data === "true_admin") {
+          sessionStorage.setItem("session_user_name",res.data.userName);
           navigatee("/adminHome");
         }else if (res.data === "true_member") {
             navigatee("/memberHome");

@@ -1,55 +1,70 @@
 package com.feedback.entities;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class CommentTest {
+  private Comment comment;
 
-  @Test
-  void testGetCommentId() {
-    Comment comment = new Comment(1, "Hi, I am Jagat");
-    assertEquals(1, comment.getCommentId());
+  @BeforeEach
+  public void setUp() {
+    comment = new Comment();
   }
 
   @Test
-  void testSetCommentId() {
-    Comment comment = new Comment();
-    comment.setCommentId(2);
-    assertEquals(2, comment.getCommentId());
+  public void testConstructor() {
+    int commentId = 1;
+    String commentMessage = "My name is Jagat Naskar";
+    User user1 = new User();
+    user1.setUserId(2);
+    user1.setName("Jagat");
+
+    comment = new Comment(commentId, commentMessage, user1);
+
+    assertEquals(commentId, comment.getCommentId());
+    assertEquals(commentMessage, comment.getCommentMessage());
+    assertEquals(user1, comment.getUser1());
   }
 
   @Test
-  void testGetCommentMessage() {
-    Comment comment = new Comment(1, "Hi, I am Jagat.");
-    assertEquals("Hi, I am Jagat.", comment.getCommentMessage());
+  public void testGettersAndSetters() {
+    int commentId = 3;
+    String commentMessage = "Hey, How are you";
+    User user1 = new User();
+    user1.setUserId(4);
+    user1.setName("Biswas");
+
+    comment.setCommentId(commentId);
+    comment.setCommentMessage(commentMessage);
+    comment.setUser1(user1);
+
+    assertEquals(commentId, comment.getCommentId());
+    assertEquals(commentMessage, comment.getCommentMessage());
+    assertEquals(user1, comment.getUser1());
   }
 
   @Test
-  void testSetCommentMessage() {
-    Comment comment = new Comment();
-    comment.setCommentMessage("Message from moon.");
-    assertEquals("Message from moon.", comment.getCommentMessage());
-  }
+  public void testToString() {
+    int commentId = 5;
+    String commentMessage = "Naskar is my title";
+    User user1 = new User();
+    user1.setUserId(6);
+    user1.setName("Charlie");
 
-  @Test
-  void testToString() {
-    Comment comment = new Comment(1, "Message from moon.");
-    String expected = "Comment [commentId=1, commentMessage=Message from moon.]";
-    assertEquals(expected, comment.toString());
-  }
+    comment.setCommentId(commentId);
+    comment.setCommentMessage(commentMessage);
+    comment.setUser1(user1);
 
-  @Test
-  void testCommentIntString() {
-    Comment comment = new Comment(3, "Another Allien");
-    assertEquals(3, comment.getCommentId());
-    assertEquals("Another Allien", comment.getCommentMessage());
-  }
-
-  @Test
-  void testComment() {
-    Comment comment = new Comment();
-    assertNull(comment.getCommentMessage());
-    assertEquals(0, comment.getCommentId());
+    String expectedToString =
+      "Comment [commentId=" +
+      commentId +
+      ", commentMessage=" +
+      commentMessage +
+      ", user1=" +
+      user1 +
+      "]";
+    assertEquals(expectedToString, comment.toString());
   }
 }

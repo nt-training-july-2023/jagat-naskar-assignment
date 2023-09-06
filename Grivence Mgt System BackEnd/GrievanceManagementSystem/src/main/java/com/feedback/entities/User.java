@@ -1,14 +1,19 @@
 package com.feedback.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+import javax.validation.constraints.Email;
 /**
  * Represents a user entity in the system.
  * This class defines properties and methods related to users.
@@ -20,7 +25,7 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User {
 
-/**
+  /**
    * The unique identifier for the user.
    */
   @Id
@@ -36,7 +41,8 @@ public class User {
   /**
    * The username of the user.
    */
-  @Column
+  @Email
+  @Column(unique = true)
   private String userName;
 
   /**
@@ -49,8 +55,27 @@ public class User {
    * The type of the user (e.g., admin, regular).
    */
   @Column
-  private String userType;
+//  @Convert(converter = ERoleConverter.class)
+  private ERole userType;
 
+  /**
+   * The type of the user (e.g., admin, regular).
+   */
+  @Column
+  private Boolean finalPassword;
+
+  /**
+   * Maping Users with tickets -> oneToMany.
+   */
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private List<Ticket> ticketList = new ArrayList<>();
+  
+  /**
+   * Mapping User to Comment (one to many).
+  */
+  @OneToMany(mappedBy = "user1", cascade = CascadeType.ALL)
+  private List<Comment> commentList = new ArrayList<>();
+  
   /**
    * Get the user's unique identifier.
    *
@@ -59,26 +84,8 @@ public class User {
   public int getUserId() {
     return userId;
   }
-  /**
-   * The type of the user (e.g., admin, regular).
-   */
-  @Column
-  private String status;
 
   /**
-   * 
-   * @return status
-   */
-  public String getStatus() {
-    return status;}
-  /**
-   * setting the status of the user.
-   * @param statuss
-   */
-  public void setStatus(final String statuss) {
-    this.status = statuss;}
-
-/**
    * Set the user's unique identifier.
    *
    * @param userIdd The new user ID.
@@ -86,12 +93,29 @@ public class User {
   public void setUserId(final int userIdd) {
     this.userId = userIdd;
   }
+  
+/**
+   * 
+   * @return finalPassword
+   */
+  public Boolean getfinalPassword() {
+    return finalPassword;
+    }
+  
+  /**
+   * setting the finalPassword of the user.
+   * @param finalPasswordd
+   */
+  public void setfinalPassword(final Boolean finalPasswordd) {
+    this.finalPassword = finalPasswordd;
+    }
 
   /**
    * Get the user's name.
    *
    * @return The user's name.
    */
+  
   public String getName() {
     return name;
   }
@@ -114,22 +138,10 @@ public class User {
     return userName;
   }
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @ManyToOne
+  @JoinColumn(name = "deptId")
   private Department department;
   
-  /**
-   * getDepartment method.
-   * @return department.
-   */
-  public Department getDepartment() {
-    return department;}
-  
-  /**
-   * set Department.
-   * @param department
-   */
-  public void setDepartment(Department department) {
-    this.department = department;}
 /**
    * Set the user's username.
    *
@@ -162,7 +174,7 @@ public class User {
    *
    * @return The user's type.
    */
-  public String getUserType() {
+  public ERole getUserType() {
     return userType;
   }
 
@@ -171,53 +183,103 @@ public class User {
    *
    * @param userTypee The new user type.
    */
-  public void setUserType(final String userTypee) {
+  public void setUserType(final ERole userTypee) {
     this.userType = userTypee;
   }
-
-  // ... constructors and other methods ...
+  
+  /**
+   * getDepartment method.
+   * @return department.
+  */
+  public Department getDepartment() {
+    return department;
+    }
+  
+  /**
+   * set Department.
+   * @param department
+   */
+  public void setDepartment(Department department) {
+    this.department = department;
+    }
+  
+  /**
+   * List of tickets in getTickets method.
+   * @return
+   */
+  public List<Ticket> getTicketList() {
+    return ticketList;
+    }
+  
+  /**
+   * set Ticket List.
+   * @param ticketList.
+   */
+  public void setTicketList(List<Ticket> ticketList) {
+    this.ticketList = ticketList;
+    }
+  
+  /**
+   * get Comment
+   * @return
+   */
+  public List<Comment> getCommentList() {
+    return commentList;
+    }
+  
+  /**
+   * setting List of Comment.
+   * @param commentList
+   */
+  public void setCommentList(List<Comment> commentList) {
+    this.commentList = commentList;
+    }
 
   /**
-   * all Fields constructor of user.
+   * field constructor.
    * @param userId
    * @param name
    * @param userName
    * @param password
    * @param userType
-   * @param status
+   * @param finalPassword
+   * @param ticketList
+   * @param commentList
    * @param department
    */
   public User(int userId,
-		  String name,
-		  String userName,
-		  String password,
-		  String userType,
-		  String status,
-		  Department department) {
-	  super();
-	  this.userId=userId;
-	  this.name=name;
-	  this.userName=userName;
-	  this.password=password;
-	  this.userType=userType;
-	  this.status=status;
-	  this.department=department;}
-  
-  /**
-   * Get a string representation of the user.
-   *
-   * @return A string representing the user.
-   */
-  
-  @Override public String toString() {
-	  return "User [userId=" + userId 
-			  + ", name=" + name 
-			  + ", userName=" 
-			  + userName + ", password=" 
-			  + password + ", userType=" 
-			  + userType + ", status=" 
-			  + status + ", department=" 
-			  + department + "]";}
+    String name,
+    String userName,
+    String password,
+    ERole userType,
+    Boolean finalPassword,
+//    List<Ticket> ticketList,
+    List<Comment> commentList,
+    Department department) {
+      super();
+      this.userId=userId;
+      this.name=name;
+      this.userName=userName;
+      this.password=password;
+      this.userType=userType;
+      this.finalPassword=finalPassword;
+//      this.ticketList=ticketList;
+      this.commentList=commentList;
+      this.department=department;
+      }
+
+@Override
+  public String toString() {
+    return "User [userId=" + userId 
+      + ", name=" + name 
+      + ", userName=" + userName 
+      + ", password=" + password 
+      + ", userType=" + userType 
+      + ", finalPassword=" + finalPassword 
+//      + ", ticketList=" + ticketList 
+      + ", commentList=" + commentList 
+      + ", department=" + department + "]";
+  }
   
   public User(){
     super();

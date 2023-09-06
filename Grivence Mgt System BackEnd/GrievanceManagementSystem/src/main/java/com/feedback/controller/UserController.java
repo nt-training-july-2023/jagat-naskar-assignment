@@ -1,7 +1,11 @@
 package com.feedback.controller;
 
 import com.feedback.entities.User;
+import com.feedback.payloads.LoginDTO;
+import com.feedback.payloads.userDTO.AddUserDto;
 import com.feedback.service.UserService;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,29 +30,28 @@ public class UserController {
   private UserService userService;
 
   @PostMapping("/addUser")
-  public ResponseEntity<?> addUser(@RequestBody final User user) {
-	  System.out.println("____________________________________");
-	  System.out.println("Controller user = "+user);
+  public ResponseEntity<?> addUser(@Valid @RequestBody final AddUserDto user) {
+    System.out.println("____________________________________");
+    System.out.println("Controller, userDTo = "+user);
     String message = "";
-    if (!(userService.checkAlreadyExist(user).equals("userNotExist"))) {
-      message = userService.checkAlreadyExist(user);
+    if(!(userService.checkAlreadyExist(user) == true)) {
+      message = "UserName(email) already exist!!!";
       return ResponseEntity.status(HttpStatus.OK).body(message);
     }
-    User saved = null;
+    User savedUser = null;
     try {
-      System.out.println("TRY controller1_________________");
-      saved = userService.saveUser(user);   //null->catch
-      System.out.println("TRY controller2_________________");
-      message = "Saved Successfully!!!";
+    	System.out.println("con2");
+      savedUser = userService.saveUser(user);
+      System.out.println("con3 savedUser = "+savedUser);
+      if(savedUser != null) {
+          message = "Saved Successfully!!!";
+      }
+
       
     } catch (Exception e) {
-      System.out.println("catch controller");
-      System.out.println("Catch Controller: " + saved);
       message = "Could not saved into database!!! " + e.getMessage();
-      System.out.println("End of catch___");
     }
-    if (saved == null) {
-    	System.out.println("if saved == null");
+    if (savedUser == null) {
     	return ResponseEntity.status(HttpStatus.OK).body(message);
     }
     return ResponseEntity.status(HttpStatus.OK).body("User saved!!!");
@@ -61,11 +64,13 @@ public class UserController {
    */
   @PostMapping("/login")
   @ResponseBody
-  public ResponseEntity<?> getByUserPassword(@RequestBody final User user) {
+  public ResponseEntity<?> getByUserPassword(@RequestBody final LoginDTO user) {
+    System.out.println("Controller1 "+user);
     String dataAndRole = (String) userService.getByUserAndPassword(
-      user.getUserName(),
+      user.getEmail(),
       user.getPassword()
     );
+    System.out.println("Con End----");
     return ResponseEntity.status(HttpStatus.OK).body(dataAndRole);
   }
 }

@@ -2,58 +2,67 @@ package com.feedback.entities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class DepartmentTest {
+  private Department department;
 
-  @Test
-  void testToString() {
-    Department department = new Department(1, "HR");
-    String expected = "Department [deptId=1, deptName=HR]";
-    String actual = department.toString();
-    assertEquals(expected, actual);
+  @BeforeEach
+  public void setUp() {
+    department = new Department();
   }
 
   @Test
-  void testGetDeptId() {
-    Department department = new Department(2, "IT");
-    assertEquals(2, department.getDeptId());
+  public void testGettersAndSetters() {
+    // Set values using setters
+    department.setDeptId(1);
+    department.setDeptName("HR");
+
+    List<User> userList = new ArrayList<>();
+    User user1 = new User();
+    User user2 = new User();
+    userList.add(user1);
+    userList.add(user2);
+    department.setUser(userList);
+
+    List<Ticket> ticketList = new ArrayList<>();
+    Ticket ticket1 = new Ticket();
+    Ticket ticket2 = new Ticket();
+    ticketList.add(ticket1);
+    ticketList.add(ticket2);
+    department.setTicketList(ticketList);
+
+    // Use getters to retrieve values
+    assertEquals(1, department.getDeptId());
+    assertEquals("HR", department.getDeptName());
+    assertEquals(userList, department.getUser());
+    assertEquals(ticketList, department.getTicketList());
   }
 
   @Test
-  void testSetDeptId() {
-    Department department = new Department();
+  public void testConstructor() {
+    List<User> userList = new ArrayList<>();
+    List<Ticket> ticketList = new ArrayList<>();
+
+    Department newDepartment = new Department(2, "IT", userList, ticketList);
+
+    assertEquals(2, newDepartment.getDeptId());
+    assertEquals("IT", newDepartment.getDeptName());
+    assertEquals(userList, newDepartment.getUser());
+    assertEquals(ticketList, newDepartment.getTicketList());
+  }
+
+  @Test
+  public void testToString() {
     department.setDeptId(3);
-    assertEquals(3, department.getDeptId());
-  }
+    department.setDeptName("Finance");
 
-  @Test
-  void testGetDeptName() {
-    Department department = new Department(4, "Finance");
-    assertEquals("Finance", department.getDeptName());
-  }
+    String expectedToString =
+      "Department [deptId=3, deptName=Finance, user=[], ticketList=[]]";
 
-  @Test
-  void testSetDeptName() {
-    Department department = new Department();
-    department.setDeptName("Marketing");
-    assertEquals("Marketing", department.getDeptName());
-  }
-
-  @Test
-  void testDepartmentIntString() {
-    Department department = new Department(5, "Sales");
-    assertEquals(5, department.getDeptId());
-    assertEquals("Sales", department.getDeptName());
-  }
-
-  /**
-   * checking no constructor, defines the id = 0 or not.
-   */
-  @Test
-  void testDepartment() {
-    Department department = new Department();
-    assertNull(department.getDeptName());
-    assertEquals(0, department.getDeptId());
+    assertEquals(expectedToString, department.toString());
   }
 }

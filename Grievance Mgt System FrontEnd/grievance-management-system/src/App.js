@@ -5,6 +5,8 @@ import AdminHome from './Components/AdminHome';
 import NewUser from './Components/CommonComponents/NewUser';
 import Ticket from './Components/Ticket';
 import AdminSidebar from './Components/AdminSidebar';
+import NewDepartment from './Components/NewDepartment';
+import MemberSidebar from './Components/MemberSidebar';
 
 const routtee = createBrowserRouter(
   createRoutesFromElements(
@@ -18,8 +20,8 @@ const routtee = createBrowserRouter(
     //       </Route>
     // </Route>
     <Route>
-    <Route path='/' element={<Login/>}/>
-    <Route path='/adminHome' element={<AdminSidebar/>}/>
+      <Route path='/' element={<Login/>}/>
+      <Route path='/adminHome' element={<AdminSidebar/>}/>
     </Route>
   )
 )
@@ -30,8 +32,10 @@ function App() {
       {/* <Practise/> */}
       {/* <Ticket/> */}
       <NewUser/>
-      {/* <AdminSidebar/> */}
-      {/* <Login/> */}
+      {/* <NewDepartment/> */}
+      {/* <Login/>
+      <AdminSidebar/>
+      <MemberSidebar/> */}
     </div>
   );
 }

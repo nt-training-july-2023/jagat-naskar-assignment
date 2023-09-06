@@ -1,11 +1,24 @@
 package com.feedback.entities;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 /**
  * Represents a ticket entity in the system.
@@ -13,95 +26,134 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Ticket")
 public class Ticket {
-    /**
-     * The Id of the ticket.
-     */
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String ticketId;
 
-    /**
-     * The title of the ticket.
-     */
-    @Column
-    private String ticketTitle;
+  /**
+   * The Id of the ticket.
+  */
+  @Id
+  @Column
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long ticketId;
 
-    /**
-     * The type of the ticket.
-     */
-    @Column
-    private String ticketType;
+  /**
+   * The title of the ticket.
+  */
+  @Column
+  private String ticketTitle;
 
-    /**
-     * The status of the ticket.
-     */
-    @Column
-    private EStatus ticketStatus;
+  /**
+   * The type of the ticket.
+  */
+  @Column
+  private String ticketType;
 
-    /**
-     * The user who assigned the ticket.
-     */
-    @Column
-    private String ticketAssignedBy;
+  /**
+   * The status of the ticket.
+  */
+  @Column
+  @Enumerated(EnumType.STRING)
+  private EStatus ticketStatus;
 
-    /**
-     * The creation time of the ticket.
-     */
-    @Column
-    private String ticketCreationTime;
+  /**
+   * The user who assigned the ticket.
+  */
+  @Column
+  private String ticketAssignedBy;
 
-    /**
-     * The last updated time of the ticket.
-     */
-    @Column
-    private String lastUpdatedTime;
+  /**
+   * The creation time of the ticket.
+  */
+  @Column
+  @CreationTimestamp
+  private LocalDateTime ticketCreationTime;
 
-    // Description
-    // Comments (Can be a tabular representation)
+  /**
+   * The last updated time of the ticket.
+  */
+  @Column
+  @UpdateTimestamp
+  private LocalDateTime lastUpdatedTime;
+  
+  @Column
+  private String ticketDescription;
+  
+  /**
+   * getting ticket description.
+   * @return
+   */
+  public String getTicketDescription() {
+    return ticketDescription;}
 
-    /**
-     * Default constructor.
-     */
-    public Ticket() {
-        // Empty constructor
+  /**
+   * setting ticket description.
+   * @param ticketDescription
+   */
+  public void setTicketDescription(String ticketDescription) {
+    this.ticketDescription = ticketDescription;}
+
+  @ManyToOne
+//  @JoinColumn(name = "userId")
+  private User user;
+
+  @ManyToOne
+//  @JoinColumn(name = "deptId")
+  private Department department;
+  
+  @OneToMany(mappedBy = "user1", cascade = CascadeType.ALL)
+  private List<Comment> commentList = new ArrayList<>();
+  
+  
+  public List<Comment> getCommentList() {
+	return commentList;
+}
+
+public void setCommentList(List<Comment> commentList) {
+	this.commentList = commentList;
+}
+
+/**
+   * Default constructor.
+  */
+  public Ticket() {}
+
+  /**
+   * get user object.
+   * @return
+   */
+  public User getUser() {
+    return user;
     }
 
-    /**
-     * Parameterized constructor to initialize ticket details.
-     *
-     * @param ticketIdd       The id of the ticket.
-     * @param ticketTitlee       The title of the ticket.
-     * @param ticketTypee       The type of the ticket.
-     * @param ticketStatuss      The status of the ticket.
-     * @param ticketAssignedByy  The user who assigned the ticket.
-     * @param ticketCreationTimee The creation time of the ticket.
-     * @param lastUpdatedTimee   The last updated time of the ticket.
-     */
-    public Ticket(
-            final String ticketIdd,
-            final String ticketTitlee,
-            final String ticketTypee,
-            final EStatus ticketStatuss,
-            final String ticketAssignedByy,
-            final String ticketCreationTimee,
-            final String lastUpdatedTimee
-    ) {
-    	this.ticketId = ticketIdd;
-        this.ticketTitle = ticketTitlee;
-        this.ticketType = ticketTypee;
-        this.ticketStatus = ticketStatuss;
-        this.ticketAssignedBy = ticketAssignedByy;
-        this.ticketCreationTime = ticketCreationTimee;
-        this.lastUpdatedTime = lastUpdatedTimee;
+  /**
+   * set user object.
+   * @param user
+   */
+  public void setUser(User user) {
+    this.user = user;
     }
 
-    /**
+  /**
+   * get department object.
+   * @return
+   */
+  public Department getDepartment() {
+    return department;
+    }
+
+  /**\
+   * set department object.
+   * @param department
+   */
+  public void setDepartment(Department department) {
+    this.department = department;
+    }
+
+/**
      * Get the id of the ticket.
      *
      * @return The ticket title.
      */
-    public String getTicketId() {
+    public Long getTicketId() {
         return ticketId;
     }
 
@@ -110,7 +162,7 @@ public class Ticket {
      *
      * @param ticketTitlee The new ticket title.
      */
-    public void setTicketId(final String ticketIdd) {
+    public void setTicketId(final Long ticketIdd) {
         this.ticketId = ticketIdd;
     }
     
@@ -191,7 +243,7 @@ public class Ticket {
      *
      * @return The ticket creation time.
      */
-    public String getTicketCreationTime() {
+    public LocalDateTime getTicketCreationTime() {
         return ticketCreationTime;
     }
 
@@ -200,26 +252,64 @@ public class Ticket {
      *
      * @param ticketCreationTimee The new ticket creation time.
      */
-    public void setTicketCreationTime(final String ticketCreationTimee) {
+    public void setTicketCreationTime(final LocalDateTime ticketCreationTimee) {
         this.ticketCreationTime = ticketCreationTimee;
     }
 
-    /**
+/**
      * Get the last updated time of the ticket.
      *
      * @return The ticket's last updated time.
      */
-    public String getLastUpdatedTime() {
+    public LocalDateTime getLastUpdatedTime() {
         return lastUpdatedTime;
     }
 
-    /**
-     * Set the last updated time of the ticket.
-     *
-     * @param lastUpdatedTimee The new ticket's last updated time.
-     */
-    public void setLastUpdatedTime(final String lastUpdatedTimee) {
-        this.lastUpdatedTime = lastUpdatedTimee;
+  /**
+   * setUpdated time.
+   * @param lastUpdatedTimee
+   */
+  public void setLastUpdatedTime(final LocalDateTime lastUpdatedTimee) {
+    this.lastUpdatedTime = lastUpdatedTimee;
     }
 
+  /**
+   * field parameter constructor.
+   * @param ticketId
+   * @param ticketTitle
+   * @param ticketType
+   * @param ticketStatus
+   * @param ticketAssignedBy
+   * @param ticketCreationTime
+   * @param lastUpdatedTime
+   * @param ticketDescription
+   * @param user
+   * @param department
+   * @param commentList
+   */
+  public Ticket(Long ticketId, 
+    String ticketTitle, 
+    String ticketType, 
+    EStatus ticketStatus, 
+    String ticketAssignedBy,
+    LocalDateTime ticketCreationTime, 
+    LocalDateTime lastUpdatedTime, 
+    String ticketDescription, 
+    User user,
+    Department department, 
+    List<Comment> commentList) {
+      super();
+      this.ticketId = ticketId;
+      this.ticketTitle = ticketTitle;
+      this.ticketType = ticketType;
+      this.ticketStatus = ticketStatus;
+      this.ticketAssignedBy = ticketAssignedBy;
+      this.ticketCreationTime = ticketCreationTime;
+      this.lastUpdatedTime = lastUpdatedTime;
+      this.ticketDescription = ticketDescription;
+      this.user = user;
+      this.department = department;
+      this.commentList = commentList;
+  }
 }
+

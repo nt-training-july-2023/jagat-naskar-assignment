@@ -1,6 +1,8 @@
 package com.feedback.service;
 
 import com.feedback.entities.User;
+import com.feedback.payloads.userDTO.AddUserDto;
+
 import java.util.List;
 
 /**
@@ -12,7 +14,7 @@ public interface UserService {
    * @param user
    * @return user to save
    */
-  User saveUser(User user);
+  User saveUser(AddUserDto user);
 
   /**
    *
@@ -47,5 +49,5 @@ public interface UserService {
    * @param user
    * @return if the user exist or not by id or by mail.
    */
-  String checkAlreadyExist(User user);
+  boolean checkAlreadyExist(AddUserDto user);
 }

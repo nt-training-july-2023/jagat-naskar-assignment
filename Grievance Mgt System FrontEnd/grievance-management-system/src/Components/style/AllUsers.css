@@ -1,0 +1,33 @@
+/* ViewAllUsers.css */
+.user-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 20px;
+  }
+  
+  .user-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    text-align: center;
+    background-color: #fff;
+  }
+  
+  .user-title {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+  }
+  
+  .user-body {
+    font-size: 1rem;
+  }
+  
+  /* Hide the password */
+  .user-body p:nth-child(4) {
+    display: none;
+  }
+  

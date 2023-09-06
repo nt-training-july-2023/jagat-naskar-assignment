@@ -1,124 +1,131 @@
 package com.feedback.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class TicketTest {
+  private Ticket ticket;
 
-  @Test
-  void testTicket() {
-    Ticket ticket = new Ticket();
-    assertNotNull(ticket);
+  @BeforeEach
+  public void setUp() {
+    ticket = new Ticket();
   }
 
   @Test
-  void testTicketStringStringStringEStatusStringStringString() {
-    Ticket ticket = new Ticket("1", "Title", "Type", EStatus.Open, "Jagat", "10am on 13th Aug, 23", "12am on 14th Aug, 23");
-    assertEquals("1", ticket.getTicketId());
-    assertEquals("Title", ticket.getTicketTitle());
-    assertEquals("Type", ticket.getTicketType());
-    assertEquals(EStatus.Open, ticket.getTicketStatus());
-    assertEquals("Jagat", ticket.getTicketAssignedBy());
-    assertEquals("10am on 13th Aug, 23", ticket.getTicketCreationTime());
-    assertEquals("12am on 14th Aug, 23", ticket.getLastUpdatedTime());
-  }
+  public void testConstructor() {
+    String ticketId = "T123";
+    String ticketTitle = "Sample Ticket";
+    String ticketType = "Bug";
+    EStatus ticketStatus = EStatus.Open;
+    String ticketAssignedBy = "John Doe";
+    String ticketCreationTime = "2023-09-01 10:00:00";
+    String lastUpdatedTime = "2023-09-01 12:00:00";
 
-  @Test
-  void testGetTicketId() {
-    Ticket ticket = new Ticket();
-    ticket.setTicketId("10023");
-    assertEquals("10023", ticket.getTicketId());
-  }
+    User user = new User();
+    user.setUserId(1);
+    user.setName("Alice");
 
-  @Test
-  void testSetTicketId() {
-    Ticket ticket = new Ticket();
-    ticket.setTicketId("45600");
-    assertEquals("45600", ticket.getTicketId());
-  }
+    Department department = new Department();
+    department.setDeptId(1);
+    department.setDeptName("IT");
 
-  @Test
-  void testGetTicketTitle() {
-    Ticket ticket = new Ticket();
-    ticket.setTicketTitle("Ticket to Moon");
-    assertEquals("Ticket to Moon", ticket.getTicketTitle());
-  }
+    ticket = new Ticket(
+        ticketId,
+        ticketTitle,
+        ticketType,
+        ticketStatus,
+        ticketAssignedBy,
+        ticketCreationTime,
+        lastUpdatedTime,
+        user,
+        department
+    );
 
-  @Test
-  void testSetTicketTitle() {
-    Ticket ticket = new Ticket();
-    ticket.setTicketTitle("Ticket for Moon");
-    assertEquals("Ticket for Moon", ticket.getTicketTitle());
-  }
+        assertEquals(ticketId, ticket.getTicketId());
+        assertEquals(ticketTitle, ticket.getTicketTitle());
+        assertEquals(ticketType, ticket.getTicketType());
+        assertEquals(ticketStatus, ticket.getTicketStatus());
+        assertEquals(ticketAssignedBy, ticket.getTicketAssignedBy());
+        assertEquals(ticketCreationTime, ticket.getTicketCreationTime());
+        assertEquals(lastUpdatedTime, ticket.getLastUpdatedTime());
+        assertEquals(user, ticket.getUser());
+        assertEquals(department, ticket.getDepartment());
+    }
 
-  @Test
-  void testGetTicketType() {
-    Ticket ticket = new Ticket();
-    ticket.setTicketType("Type A");
-    assertEquals("Type A", ticket.getTicketType());
-  }
+    @Test
+    public void testGettersAndSetters() {
+        String ticketId = "T456";
+        String ticketTitle = "Another Ticket";
+        String ticketType = "Feature";
+        EStatus ticketStatus = EStatus.Being_Addressed;
+        String ticketAssignedBy = "Jane Smith";
+        String ticketCreationTime = "2023-09-02 09:30:00";
+        String lastUpdatedTime = "2023-09-02 11:45:00";
 
-  @Test
-  void testSetTicketType() {
-    Ticket ticket = new Ticket();
-    ticket.setTicketType("Type B");
-    assertEquals("Type B", ticket.getTicketType());
-  }
+        User user = new User();
+        user.setUserId(2);
+        user.setName("Bob");
 
-  @Test
-  void testGetTicketStatus() {
-    Ticket ticket = new Ticket();
-    ticket.setTicketStatus(EStatus.Resolved);
-    assertEquals(EStatus.Resolved, ticket.getTicketStatus());
-  }
+        Department department = new Department();
+        department.setDeptId(2);
+        department.setDeptName("HR");
 
-  @Test
-  void testSetTicketStatus() {
-    Ticket ticket = new Ticket();
-    ticket.setTicketStatus(EStatus.Being_Addressed);
-    assertEquals(EStatus.Being_Addressed, ticket.getTicketStatus());
-  }
+        ticket.setTicketId(ticketId);
+        ticket.setTicketTitle(ticketTitle);
+        ticket.setTicketType(ticketType);
+        ticket.setTicketStatus(ticketStatus);
+        ticket.setTicketAssignedBy(ticketAssignedBy);
+        ticket.setTicketCreationTime(ticketCreationTime);
+        ticket.setLastUpdatedTime(lastUpdatedTime);
+        ticket.setUser(user);
+        ticket.setDepartment(department);
 
-  @Test
-  void testGetTicketAssignedBy() {
-    Ticket ticket = new Ticket();
-    ticket.setTicketAssignedBy("admin");
-    assertEquals("admin", ticket.getTicketAssignedBy());
-  }
+        assertEquals(ticketId, ticket.getTicketId());
+        assertEquals(ticketTitle, ticket.getTicketTitle());
+        assertEquals(ticketType, ticket.getTicketType());
+        assertEquals(ticketStatus, ticket.getTicketStatus());
+        assertEquals(ticketAssignedBy, ticket.getTicketAssignedBy());
+        assertEquals(ticketCreationTime, ticket.getTicketCreationTime());
+        assertEquals(lastUpdatedTime, ticket.getLastUpdatedTime());
+        assertEquals(user, ticket.getUser());
+        assertEquals(department, ticket.getDepartment());
+    }
 
-  @Test
-  void testSetTicketAssignedBy() {
-    Ticket ticket = new Ticket();
-    ticket.setTicketAssignedBy("member");
-    assertEquals("member", ticket.getTicketAssignedBy());
-  }
+    @Test
+    public void testToString() {
+        String ticketId = "T789";
+        String ticketTitle = "Yet Another Ticket";
+        String ticketType = "Task";
+        EStatus ticketStatus = EStatus.Resolved;
+        String ticketAssignedBy = "David Johnson";
+        String ticketCreationTime = "2023-09-03 14:15:00";
+        String lastUpdatedTime = "2023-09-03 16:30:00";
 
-  @Test
-  void testGetTicketCreationTime() {
-    Ticket ticket = new Ticket();
-    ticket.setTicketCreationTime("2023-08-30 23:12");
-    assertEquals("2023-08-30 23:12", ticket.getTicketCreationTime());
-  }
+        User user = new User();
+        user.setUserId(3);
+        user.setName("Charlie");
 
-  @Test
-  void testSetTicketCreationTime() {
-    Ticket ticket = new Ticket();
-    ticket.setTicketCreationTime("2023-09-01");
-    assertEquals("2023-09-01", ticket.getTicketCreationTime());
-  }
+        Department department = new Department();
+        department.setDeptId(3);
+        department.setDeptName("Finance");
 
-  @Test
-  void testGetLastUpdatedTime() {
-    Ticket ticket = new Ticket();
-    ticket.setLastUpdatedTime("2023-08-31 21:00");
-    assertEquals("2023-08-31 21:00", ticket.getLastUpdatedTime());
-  }
+        ticket.setTicketId(ticketId);
+        ticket.setTicketTitle(ticketTitle);
+        ticket.setTicketType(ticketType);
+        ticket.setTicketStatus(ticketStatus);
+        ticket.setTicketAssignedBy(ticketAssignedBy);
+        ticket.setTicketCreationTime(ticketCreationTime);
+        ticket.setLastUpdatedTime(lastUpdatedTime);
+        ticket.setUser(user);
+        ticket.setDepartment(department);
 
-  @Test
-  void testSetLastUpdatedTime() {
-    Ticket ticket = new Ticket();
-    ticket.setLastUpdatedTime("2023-09-02 23:45");
-    assertEquals("2023-09-02 23:45", ticket.getLastUpdatedTime());
-  }
+        String expectedToString = "Ticket [ticketId=" + ticketId + ", ticketTitle=" + ticketTitle + ", ticketType=" + ticketType +
+                ", ticketStatus=" + ticketStatus + ", ticketAssignedBy=" + ticketAssignedBy + ", ticketCreationTime=" + ticketCreationTime +
+                ", lastUpdatedTime=" + lastUpdatedTime + ", user=" + user + ", department=" + department + "]";
+
+        assertEquals(expectedToString, ticket.toString());
+    }
 }
 
