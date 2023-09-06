@@ -8,7 +8,7 @@ public class AddUserDto {
   String userName;
   String password;
   ERole userType;
-  AddDepartemntDTO department;
+  String departmentName;
   public String getName() {
     return name;
   }
@@ -33,29 +33,31 @@ public class AddUserDto {
   public void setUserType(ERole userType) {
     this.userType = userType;
   }
-  public AddDepartemntDTO getDepartment() {
-    return department;
-  }
-  public void setDepartment(AddDepartemntDTO department) {
-    this.department = department;
-  }
   
-  @Override
+  
+ 
+public String getDepartmentName() {
+	return departmentName;
+}
+public void setDepartmentName(String departmentName) {
+	this.departmentName = departmentName;
+}
+@Override
   public String toString() {
     return "AddUser [name=" + name + ", userName=" + userName + ", password=" + password + ", userType=" + userType
-      + ", department=" + department + "]";
+      + ", department=" + departmentName + "]";
   }
   public AddUserDto(String namee, 
     String userNamee, 
     String passwordd, 
     ERole userTypee, 
-    AddDepartemntDTO departmentt) {
+    String departmentt) {
       super();
       this.name = namee;
       this.userName = userNamee;
       this.password = passwordd;
       this.userType = userTypee;
-      this.department = departmentt;
+      this.departmentName = departmentt;
 }
   
   public AddUserDto() {

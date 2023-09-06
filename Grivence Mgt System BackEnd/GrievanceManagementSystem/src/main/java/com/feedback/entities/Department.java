@@ -48,16 +48,10 @@ public class Department {
   @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
   private List<Ticket> ticketList = new ArrayList<>();
   
-  /**
-   * toString method.
-   */
-  @Override 
-  public String toString() {
-    return "Department [deptId=" + deptId 
-      + ", deptName=" + deptName 
-      + ", user=" + user 
-      + ", ticketList=" + ticketList + "]";
-    }
+  @Override
+public String toString() {
+	return "Department [deptId=" + deptId + ", deptName=" + deptName + "]";
+}
 
   /**
    * get Id of the department.
@@ -153,4 +147,5 @@ public class Department {
   public Department() {
     super();
   }
+  
 }

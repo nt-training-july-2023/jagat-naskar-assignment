@@ -41,7 +41,7 @@ public class User {
   /**
    * The username of the user.
    */
-  @Email
+  
   @Column(unique = true)
   private String userName;
 

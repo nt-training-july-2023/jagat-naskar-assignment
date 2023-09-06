@@ -12,7 +12,7 @@ export default function NewUser() {
   const [passwordError, setPasswordError] = useState("");
   const [userType, setUserType] = useState("");
   const [userTypeError, setUserTypeError] = useState("");
-  const [department, setDepartment] = useState({ deptName: "" });
+  const [departmentName, setDepartmentName] = useState("");
   const [deptNameError, setDeptNameError] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [message, setMessage] = useState("");
@@ -21,7 +21,7 @@ export default function NewUser() {
     userName: "",
     password: "",
     userType: "",
-    department: {deptName: ""},
+    departmentName : ""
   });
 
   const handleShowAlert = () => {
@@ -36,7 +36,7 @@ export default function NewUser() {
     setUsername("");
     setPassword("");
     setUserType("");
-    setDepartment({ deptName: "" });
+    setDepartmentName("");
   };
 
   const validateName = () => {
@@ -90,9 +90,9 @@ export default function NewUser() {
   };
 
   const validateDeptName = () => {
-    if (department.deptName === "") {
-      setDeptNameError("Please select a department");
-    } else if (department.deptName === "Select Department") {
+    if (departmentName === "") {
+      setDeptNameError("Please select a department ");
+    } else if (departmentName === "Select Department") {
       setUserTypeError("Select Department");
     } else {
       setDeptNameError("");
@@ -126,22 +126,22 @@ export default function NewUser() {
         username,
         password,
         userType,
-        department.deptName
+        departmentName
       );
 
       //creating object to send
       post.name = name;
-      post.department = department;
+      post.departmentName = departmentName;
       post.password = password;
       post.userType = userType;
       post.userName = username;
       setPost({ ...post });
       console.log("POST=" + post);
-      console.log("POS usernameT=" + post.userName);
-      console.log("POST deptname=" + post.department.deptName);
-      console.log("POST password=" + post.password);
-      console.log("POst tpye=" + post.userType);
-      console.log("post name" + post.name);
+      console.log("...POS userName =" + post.userName);
+      console.log("...POST departmentName =" + post.departmentName);
+      console.log("...POST password=" + post.password);
+      console.log("...POst userType=" + post.userType);
+      console.log("...post name" + post.name);
       try {
         const res = await axios.post(
           "http://localhost:8080/api/users/addUser",
@@ -241,7 +241,7 @@ export default function NewUser() {
           id="deptName"
           name="dept_type"
           onChange={(e) => {
-            setDepartment({ ...department, deptName: e.target.value });
+            setDepartmentName(e.target.value);
           }}
         >
           {departmrntList.map((e) => (

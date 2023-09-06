@@ -10,6 +10,8 @@ import com.feedback.repository.UserRepository;
 import com.feedback.service.UserService;
 
 import java.util.List;
+
+import org.aspectj.lang.reflect.DeclareErrorOrWarning;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,20 +60,33 @@ public class UserServiceImpl implements UserService {
 //    System.out.println("---->"+departmentRepository.findByDeptName(user.getDepartment().getDeptName()));
     Department d1 = new Department();
     try {
-    
-      d1= departmentRepository.findByDeptName(user.getDepartment().getDeptName());
-      System.out.println("d1= "+d1);
+    	System.out.println("ser3");
+    	if((departmentRepository.findByDeptName(user.getDepartmentName()) == null))
+        {
+    		System.out.println("ser4");
+          throw new DepartmentNotFoundException(user.getDepartmentName());
+        }
+    	System.out.println("ser5");
+      d1= departmentRepository.findByDeptName(user.getDepartmentName());
+      System.out.println("ser 5.5 d1= "+d1);
     }catch (Exception e) {
+    	System.out.println("ser6");
 		System.out.println("Error = "+e.getMessage());
 	}
-    if(d1 == null)
-    {
-      throw new DepartmentNotFoundException(user.getDepartment().getDeptName());
-    }
+    
     newUser.setDepartment(d1);
+    System.out.println("ser7");
     
     System.out.println("Service newUser = "+newUser);
     return userRepository.save(newUser);
+	  
+//	  User user2 = new User();
+//	  user2.setUserName(user.getName());
+//	  user2.setUserType(user.getUserType());
+//	  user2.setPassword(user.getPassword());
+//	  System.out.println(departmentRepository.findByDeptName(user.getDepartmentName()));
+//	  user2.setDepartment(departmentRepository.findByDeptName(user.getDepartmentName()));
+//	  return userRepository.save(user2);
   }
 
   public boolean checkAlreadyExist(AddUserDto user) {
