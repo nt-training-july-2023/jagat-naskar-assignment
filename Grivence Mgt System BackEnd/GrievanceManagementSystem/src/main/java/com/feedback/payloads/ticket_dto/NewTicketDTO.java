@@ -1,5 +1,7 @@
-package com.feedback.payloads.AllTicketDTO;
+package com.feedback.payloads.ticket_dto;
 
+
+import java.util.Objects;
 
 import com.feedback.entities.EStatus;
 
@@ -89,5 +91,26 @@ public NewTicketDTO(Long ticketIdd,
   public NewTicketDTO() {
     super();
   }
+ 
+  @Override
+  public int hashCode() {
+    return Objects.hash(deptName, senderEmail, ticketDescription, ticketId, ticketStatus, ticketTitle, ticketType);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+        return true;
+    if (obj == null)
+        return false;
+    if (getClass() != obj.getClass())
+        return false;
+    NewTicketDTO other = (NewTicketDTO) obj;
+    return Objects.equals(deptName, other.deptName) && Objects.equals(senderEmail, other.senderEmail)
+      && Objects.equals(ticketDescription, other.ticketDescription) && Objects.equals(ticketId, other.ticketId)
+      && ticketStatus == other.ticketStatus && Objects.equals(ticketTitle, other.ticketTitle)
+      && Objects.equals(ticketType, other.ticketType);
+  }
 
 }
+

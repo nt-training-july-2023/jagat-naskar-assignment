@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.feedback.custom_exception.NullPointerFromFrontendException;
 import com.feedback.entities.Ticket;
-import com.feedback.payloads.AllTicketDTO.NewTicketDTO;
+import com.feedback.payloads.ticket_dto.NewTicketDTO;
 import com.feedback.service.TicketService;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -28,16 +28,12 @@ public class TicketController {
     }
     String message = "";
     Ticket savedTicket = null;
-    //try {
-      savedTicket = ticketService.saveTicket(ticket);
-      if(savedTicket != null){
-    	  message = "Ticket saved Successfully!!!";
-      }
-    //} catch (Exception e) {
-    //  message = "Could not saved into database!!! " + e.getMessage();
-    //}
+    savedTicket = ticketService.saveTicket(ticket);
+    if(savedTicket != null){
+      message = "Ticket saved Successfully!!!";
+    }
     if (savedTicket == null) {
-    	return ResponseEntity.status(HttpStatus.OK).body(message);
+      return ResponseEntity.status(HttpStatus.OK).body(message);
     }
     return ResponseEntity.status(HttpStatus.OK).body("Ticket saved!!!");
   }

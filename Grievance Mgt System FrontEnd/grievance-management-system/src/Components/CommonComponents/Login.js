@@ -23,11 +23,6 @@ const Login = (props) => {
   }
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    
-
-   
-
     //validating
     if (username.trim() === "") {
       setError("Username is required");
@@ -38,8 +33,7 @@ const Login = (props) => {
       setIsSubmitted(true);
       post.email = username;
       post.password = password;
-
-      // Backend login logic here...
+      // Backend
       setPost({ ...post });
       console.log("Login data:", username, password);
       console.log(post);
@@ -50,21 +44,22 @@ const Login = (props) => {
         );
         console.log(res.data);
         if (res.data === "true_admin") {
-          sessionStorage.setItem("session_user_name",res.data.userName);
-          navigatee("/adminHome");
+          sessionStorage.setItem("session_user_name", post.email);
+          console.log("session_user_name = "+post.email);
+          navigatee("/admin/adminHome");
         }else if (res.data === "true_member") {
-            navigatee("/memberHome");
+            navigatee("member/memberHome");
         }
         else if (res.data === "false") {
             //showing User is not valid
-            handleShowAlert();
             setMessage("Invalid Credentials!!!")
+            handleShowAlert();
             resetForm();
         }
       } catch (e) {
          //showing Backend is not connected through CustomAlert Box
-        handleShowAlert(); //ShowAlert == true
         setMessage(e.message); //setting message for not having connection
+        handleShowAlert(); //ShowAlert == true
       }
     }
   };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Menu } from "antd";
 import "../Components/style/AdminSidebar.css";
 import Header from "../Components/Header";
@@ -23,11 +23,12 @@ function MemberSidebar() {
   let navigatee = useNavigate();
 
   const handleLogout = () => {
-    navigatee("/login");
+    navigatee("/");
+    localStorage.clear();
   };
   return (
     <>
-    <Header name="Akhil Bahadur" role="member" />
+    <Header name={sessionStorage.getItem("session_user_name")} role="member" />
       <div className="sidebar-parent">
         <div className="menu">
           <Menu
@@ -70,7 +71,7 @@ function MemberSidebar() {
           />
         </div>
         <div className="admin-content">
-          <MemberRoute />
+          <Outlet />
         </div>
       </div>
     </>

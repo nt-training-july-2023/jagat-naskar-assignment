@@ -32,11 +32,11 @@ export default function NewUser() {
   };
 
   const resetForm = () => {
-    setName("");
-    setUsername("");
-    setPassword("");
-    setUserType("");
-    setDepartmentName("");
+    setName('');
+    setUsername('');
+    setPassword('');
+    // setUserType('');
+    // setDepartmentName('');
   };
 
   const validateName = () => {
@@ -150,14 +150,12 @@ export default function NewUser() {
         console.log("RES = " + res.data);
         handleShowAlert();
         setMessage(res.data);
-
+        resetForm();
       } catch (e) {
         handleShowAlert(e.message);
         setMessage(e.message);
       }
-      if(showAlert === false){
         resetForm();
-      }
       console.log("showAlert = "+showAlert);
       
     } else {
@@ -195,11 +193,14 @@ export default function NewUser() {
           id="username"
           placeholder="Enter your Username"
           name="username"
+          value = {username}
           onChange={(e) => {
             setUsername(e.target.value);
           }}
         />
-        <label className="label-user">
+        <label className="label-user">\
+
+        
           Initial Password <p className="error1">{passwordError}</p>{" "}
         </label>
         <input

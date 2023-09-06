@@ -1,19 +1,33 @@
 import React, { useState } from 'react';
 import '../Components/style/NewDepartment.css';
+import axios from 'axios';
 
 function NewDepartment() {
-  const [departmentName, setDepartmentName] = useState('');
+  // const [departmentName, setDepartmentName] = useState('');
+  const [formData, setFormData] = useState({"deptName":""});
+  const addNewDeptUrl = "http://localhost:8080/api/dept/addDept";
 
   const [departmentNameError, setDepartmentNameError] = useState("");
-
-  const handleSubmit = (e) => {
+  const inputChange=()=>{
+   // setFormData({...formData, deptName:departmentName});
+  }
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!departmentName) {
-      setDepartmentNameError("Enter your name");
+    if(!formData.deptName) {
+      setDepartmentNameError("Enter new Department");
     }
+    try {
+      
+      const response = await axios.post(addNewDeptUrl, formData);
+      console.log(response.data);
+      // Handle success, show a success message, or redirect the user
+      } catch (error) {
+      console.error(error);
+      // Handle errors
+      }
     // You can perform any action here with the departmentName, such as sending it to a server.
-    console.log('Department Name:', departmentName);
-    setDepartmentName('');
+    console.log('Department Name:', formData);
+    setFormData('');
   };
 
   return (
@@ -25,8 +39,8 @@ function NewDepartment() {
         </label>
           <input
             type="text"
-            value={departmentName}
-            onChange={(e) => setDepartmentName(e.target.value)}
+            value={formData.deptName}
+            onChange={(e) => setFormData({...formData, deptName:e.target.value})}
             required
           />
           {departmentNameError && <p className="error">{departmentNameError}</p>}

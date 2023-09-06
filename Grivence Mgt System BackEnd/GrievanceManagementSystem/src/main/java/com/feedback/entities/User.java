@@ -181,7 +181,7 @@ public class User {
   /**
    * Set the user's type.
    *
-   * @param userTypee The new user type.
+   * @param string The new user type.
    */
   public void setUserType(final ERole userTypee) {
     this.userType = userTypee;
@@ -268,18 +268,6 @@ public class User {
       this.department=department;
       }
 
-@Override
-  public String toString() {
-    return "User [userId=" + userId 
-      + ", name=" + name 
-      + ", userName=" + userName 
-      + ", password=" + password 
-      + ", userType=" + userType 
-      + ", finalPassword=" + finalPassword 
-//      + ", ticketList=" + ticketList 
-      + ", commentList=" + commentList 
-      + ", department=" + department + "]";
-  }
   
   public User(){
     super();

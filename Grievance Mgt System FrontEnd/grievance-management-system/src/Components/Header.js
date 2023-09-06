@@ -7,7 +7,7 @@ function Header(props) {
     <div className="admin-header">
       <h1>Greviance Management System</h1>
       <p>{role}</p>
-      <h3>{name}</h3>
+      <h3>{sessionStorage.getItem("session_user_name")}</h3>
     </div>
   );
 }

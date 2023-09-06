@@ -6,17 +6,18 @@
 
 /* Admin Content */
 .admin-content {
-  height: 83vh;
-  flex: 1; /* Allow the admin content to take up the remaining space */
-  padding: 4% 4% 4% 4%;
+  /* height: 89.3vh; */
+  height: 97vh;
+  flex: 1 1;
+  padding: 0% 4% 4% 4%;
   background-color: #51555c63;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 /* Menu Styles */
 .sidebar-parent .menu {
   width: 20%; /* Menu takes up the full width */
-  height: 100vh;
+  height: 102.vh;
   background-color: #000000;
 }
 

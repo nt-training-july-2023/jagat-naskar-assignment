@@ -1,7 +1,7 @@
 package com.feedback.service;
 
 import com.feedback.entities.User;
-import com.feedback.payloads.userDTO.AddUserDto;
+import com.feedback.payloads.user_dto.AddUserDto;
 
 import java.util.List;
 

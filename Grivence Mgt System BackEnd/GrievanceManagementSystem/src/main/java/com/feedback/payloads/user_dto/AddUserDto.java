@@ -1,7 +1,9 @@
-package com.feedback.payloads.userDTO;
+package com.feedback.payloads.user_dto;
+
+import java.util.Objects;
 
 import com.feedback.entities.ERole;
-import com.feedback.payloads.DepartmentDTO.AddDepartemntDTO;
+import com.feedback.payloads.department_dto.AddDepartemntDTO;
 
 public class AddUserDto {
   String name;
@@ -37,10 +39,10 @@ public class AddUserDto {
   
  
 public String getDepartmentName() {
-	return departmentName;
+    return departmentName;
 }
 public void setDepartmentName(String departmentName) {
-	this.departmentName = departmentName;
+    this.departmentName = departmentName;
 }
 @Override
   public String toString() {
@@ -62,6 +64,23 @@ public void setDepartmentName(String departmentName) {
   
   public AddUserDto() {
     super();
+  }
+  @Override
+  public int hashCode() {
+    return Objects.hash(departmentName, name, password, userName, userType);
+  }
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    AddUserDto other = (AddUserDto) obj;
+    return Objects.equals(departmentName, other.departmentName) && Objects.equals(name, other.name)
+          && Objects.equals(password, other.password) && Objects.equals(userName, other.userName)
+          && userType == other.userType;
   }
  
 

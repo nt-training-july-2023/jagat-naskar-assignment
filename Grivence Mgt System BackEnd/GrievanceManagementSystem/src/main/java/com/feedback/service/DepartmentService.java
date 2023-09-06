@@ -1,7 +1,7 @@
 package com.feedback.service;
 
 import com.feedback.entities.Department;
-import com.feedback.payloads.DepartmentDTO.AddDepartemntDTO;
+import com.feedback.payloads.department_dto.AddDepartemntDTO;
 
 public interface DepartmentService {
 

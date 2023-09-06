@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.feedback.entities.Ticket;
-import com.feedback.payloads.AllTicketDTO.NewTicketDTO;
+import com.feedback.payloads.ticket_dto.NewTicketDTO;
 import com.feedback.repository.DepartmentRepository;
 import com.feedback.repository.TicketRepository;
 import com.feedback.repository.UserRepository;

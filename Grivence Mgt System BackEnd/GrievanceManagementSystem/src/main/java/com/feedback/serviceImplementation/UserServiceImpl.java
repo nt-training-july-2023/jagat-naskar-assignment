@@ -4,7 +4,7 @@ import com.feedback.custom_exception.DepartmentNotFoundException;
 import com.feedback.entities.Department;
 import com.feedback.entities.ERole;
 import com.feedback.entities.User;
-import com.feedback.payloads.userDTO.AddUserDto;
+import com.feedback.payloads.user_dto.AddUserDto;
 import com.feedback.repository.DepartmentRepository;
 import com.feedback.repository.UserRepository;
 import com.feedback.service.UserService;
@@ -54,39 +54,13 @@ public class UserServiceImpl implements UserService {
     newUser.setfinalPassword(false);
     newUser.setUserType(user.getUserType());
     System.out.println("ser2");
-    
-    
-    
-//    System.out.println("---->"+departmentRepository.findByDeptName(user.getDepartment().getDeptName()));
     Department d1 = new Department();
-    try {
-    	System.out.println("ser3");
-    	if((departmentRepository.findByDeptName(user.getDepartmentName()) == null))
-        {
-    		System.out.println("ser4");
+    if((departmentRepository.findByDeptName(user.getDepartmentName()) == null)) {
           throw new DepartmentNotFoundException(user.getDepartmentName());
-        }
-    	System.out.println("ser5");
-      d1= departmentRepository.findByDeptName(user.getDepartmentName());
-      System.out.println("ser 5.5 d1= "+d1);
-    }catch (Exception e) {
-    	System.out.println("ser6");
-		System.out.println("Error = "+e.getMessage());
-	}
-    
+      }
+    d1= departmentRepository.findByDeptName(user.getDepartmentName());
     newUser.setDepartment(d1);
-    System.out.println("ser7");
-    
-    System.out.println("Service newUser = "+newUser);
     return userRepository.save(newUser);
-	  
-//	  User user2 = new User();
-//	  user2.setUserName(user.getName());
-//	  user2.setUserType(user.getUserType());
-//	  user2.setPassword(user.getPassword());
-//	  System.out.println(departmentRepository.findByDeptName(user.getDepartmentName()));
-//	  user2.setDepartment(departmentRepository.findByDeptName(user.getDepartmentName()));
-//	  return userRepository.save(user2);
   }
 
   public boolean checkAlreadyExist(AddUserDto user) {
@@ -94,9 +68,9 @@ public class UserServiceImpl implements UserService {
     u1.setUserName(user.getUserName());
     System.out.println("checking..."+userRepository.existsByUserName(u1.getUserName()));
     if (userRepository.existsByUserName(u1.getUserName())) {
-      return false;
+      return true;
     }
-    return true;
+    return false;
   }
 
   /**
@@ -130,27 +104,17 @@ public class UserServiceImpl implements UserService {
   @Override
   public String getByUserAndPassword(final String userName, final String password) {
     User u1 = null;
-    System.out.println("ser1....");
     try {
-      System.out.println("ser2....");
       u1 = userRepository.getUserByUsername(userName);
-      System.out.println("ser3....");
       ERole roll=null;
-      System.out.println("ser3.3....");
       if (password.equals(u1.getPassword())) {
-        System.out.println("ser4....");
         if (u1 != null) {
-          System.out.println("ser5....");
           roll = u1.getUserType();
         }
-        System.out.println("ser6....");
         return "true_" + roll.name();
       }
     } catch (Exception e) {
-      System.out.println("ser7...."+e.getMessage());
-      System.out.println("User not found");
     }
-    System.out.println("ser8....");
     return "false";
   }
 

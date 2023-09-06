@@ -1,4 +1,4 @@
-package com.feedback.payloads;
+package com.feedback.payloads.user_dto;
 
 import java.util.Objects;
 

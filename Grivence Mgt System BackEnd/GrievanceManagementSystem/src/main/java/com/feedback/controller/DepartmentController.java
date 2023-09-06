@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.feedback.payloads.DepartmentDTO.AddDepartemntDTO;
+import com.feedback.payloads.department_dto.AddDepartemntDTO;
 import com.feedback.service.DepartmentService;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -20,26 +20,24 @@ import com.feedback.service.DepartmentService;
 public class DepartmentController {
   @Autowired
   DepartmentService departmentService;
+
   @PostMapping("/addDept")
   public ResponseEntity<?> addDept(@Valid @RequestBody final AddDepartemntDTO dept1) {
-    System.out.println("____________________________________");
-    System.out.println("Controller, DeptDTo = "+dept1);
-    String message = "";
-    System.out.println("con1");
-    if(departmentService.checkAlreadyExist(dept1) == true) {
-    	System.out.println("con2");
-       message = "Department already exist";
-       System.out.println("con3");
-       return ResponseEntity.status(HttpStatus.OK).body(message);
+    try {
+        if (departmentService.checkAlreadyExist(dept1)) {
+          String message = "Department already exists";
+          return ResponseEntity.status(HttpStatus.OK).body(message);
+        }
+        if (departmentService.addDept(dept1) == null) {
+          throw new RuntimeException("Database save problem");
+        }
+        
+        String message = "Department " + dept1.getDeptName() + " saved successfully!!!";
+        return ResponseEntity.status(HttpStatus.OK).body(message);
+    } catch (Exception e) {
+        String errorMessage = "Problem saving in the database: " + e.getMessage();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
     }
-    System.out.println("con4");
-    if(departmentService.addDept(dept1) == null) {
-    	System.out.println("con5");
-      throw new NullPointerException("Problem saving in the database");
-      
-    }
-    System.out.println("con6");
-    message = "Department "+dept1.getDeptName()+" saved sucessfully!!!";
-    return ResponseEntity.status(HttpStatus.OK).body(message);
   }
 }
+

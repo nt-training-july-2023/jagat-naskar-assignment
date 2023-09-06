@@ -1,8 +1,8 @@
 package com.feedback.controller;
 
 import com.feedback.entities.User;
-import com.feedback.payloads.LoginDTO;
-import com.feedback.payloads.userDTO.AddUserDto;
+import com.feedback.payloads.user_dto.AddUserDto;
+import com.feedback.payloads.user_dto.LoginDTO;
 import com.feedback.service.UserService;
 import javax.validation.Valid;
 
@@ -34,7 +34,7 @@ public class UserController {
     System.out.println("____________________________________");
     System.out.println("Controller, userDTo = "+user);
     String message = "";
-    if(!(userService.checkAlreadyExist(user) == true)) {
+    if((userService.checkAlreadyExist(user) == true)) {
       message = "UserName(email) already exist!!!";
       return ResponseEntity.status(HttpStatus.OK).body(message);
     }
@@ -65,12 +65,10 @@ public class UserController {
   @PostMapping("/login")
   @ResponseBody
   public ResponseEntity<?> getByUserPassword(@RequestBody final LoginDTO user) {
-    System.out.println("Controller1 "+user);
     String dataAndRole = (String) userService.getByUserAndPassword(
       user.getEmail(),
       user.getPassword()
     );
-    System.out.println("Con End----");
     return ResponseEntity.status(HttpStatus.OK).body(dataAndRole);
   }
 }

@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 function MemberRoute() {
     return (
       <>
-        <Routes>
+        {/* <Routes>
           <Route path="/" element={<div>Member Home Page</div>} />
           <Route path="" element={<div></div>} />
           <Route path="" element={<div></div>} />
@@ -16,7 +16,7 @@ function MemberRoute() {
           <Route path="createTicket" element={<div>Create Ticket Page</div>} />
           <Route path="" element={<div></div>} />
           <Route path="" element={<div></div>} />
-        </Routes>
+        </Routes> */}
       </>
     );
   }

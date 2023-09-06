@@ -12,7 +12,7 @@ import DeleteUser from "./DeleteUser";
 function AdminRoute() {
     return (
       <>
-        <Routes>
+        {/* <Routes>
           <Route path="/" element={<AdminHome />} />
           <Route path="/addUser" element={<NewUser />} />
           <Route path="/logout" element={<Login />} />
@@ -26,7 +26,7 @@ function AdminRoute() {
           <Route path="/createDept" element={<NewDepartment/>} />
           <Route path="/viewDept" element={<AllDepartment/>} />
           <Route path="/deleteDept" element={<DeleteDepartment/>} />
-        </Routes>
+        </Routes> */}
       </>
     );
   }

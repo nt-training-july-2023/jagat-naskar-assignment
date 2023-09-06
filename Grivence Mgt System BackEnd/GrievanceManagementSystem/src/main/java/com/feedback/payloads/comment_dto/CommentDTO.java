@@ -1,4 +1,4 @@
-package com.feedback.payloads;
+package com.feedback.payloads.comment_dto;
 
 import javax.persistence.Id;
 

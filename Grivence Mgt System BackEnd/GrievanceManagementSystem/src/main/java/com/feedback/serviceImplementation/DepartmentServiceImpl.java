@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.feedback.entities.Department;
-import com.feedback.payloads.DepartmentDTO.AddDepartemntDTO;
+import com.feedback.payloads.department_dto.AddDepartemntDTO;
 import com.feedback.repository.DepartmentRepository;
 import com.feedback.service.DepartmentService;
 

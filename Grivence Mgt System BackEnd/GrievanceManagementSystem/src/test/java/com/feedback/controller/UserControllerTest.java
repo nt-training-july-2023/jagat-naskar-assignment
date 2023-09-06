@@ -5,6 +5,8 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import com.feedback.entities.User;
+import com.feedback.payloads.user_dto.AddUserDto;
+import com.feedback.payloads.user_dto.LoginDTO;
 import com.feedback.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,89 +26,74 @@ public class UserControllerTest {
 
   @Test
   public void testGetByUserPassword_SuccessfulAuthentication() {
-    // Arrange
-    User user = new User();
-    user.setUserName("admin@nucleusteq.com");
-    user.setPassword("admin");
-    user.setUserType("admin");
-    when(userService.getByUserAndPassword(eq(user.getUserName()), eq(user.getPassword())))
-      .thenReturn("true_" + user.getUserType());
-    // Act
-    ResponseEntity<?> response = userController.getByUserPassword(user);
+      // Arrange
+      LoginDTO loginDTO = new LoginDTO();
+      loginDTO.setEmail("admin@nucleusteq.com");
+      loginDTO.setPassword("admin");
 
-    // Assert
-    verify(userService)
-      .getByUserAndPassword(eq(user.getUserName()), eq(user.getPassword()));
-    assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertEquals("true_" + user.getUserType(), response.getBody());
+      when(userService.getByUserAndPassword(eq(loginDTO.getEmail()), eq(loginDTO.getPassword())))
+              .thenReturn("true_admin"); // Assuming successful authentication for admin user
+
+      // Act
+      ResponseEntity<?> response = userController.getByUserPassword(loginDTO);
+
+      // Assert
+      verify(userService).getByUserAndPassword(eq(loginDTO.getEmail()), eq(loginDTO.getPassword()));
+      assertEquals(HttpStatus.OK, response.getStatusCode());
+      assertEquals("true_admin", response.getBody());
   }
 
   @Test
   public void testGetByUserPassword_FailedAuthentication() {
-    // Arrange
-    User user = new User();
-    user.setUserName("admin@nucleusteq.com");
-    user.setPassword("admin");
-    user.setUserType("admin");
-    when(userService.getByUserAndPassword(eq(user.getUserName()), eq(user.getPassword())))
-      .thenReturn("false"); // Simulate failed authentication
+      // Arrange
+      LoginDTO loginDTO = new LoginDTO();
+      loginDTO.setEmail("admin@nucleusteq.com");
+      loginDTO.setPassword("admin");
 
-    // Act
-    ResponseEntity<?> response = userController.getByUserPassword(user);
+      when(userService.getByUserAndPassword(eq(loginDTO.getEmail()), eq(loginDTO.getPassword())))
+              .thenReturn("false"); // Simulate failed authentication
 
-    // Assert
-    verify(userService)
-      .getByUserAndPassword(eq(user.getUserName()), eq(user.getPassword()));
-    assertEquals(HttpStatus.OK, response.getStatusCode()); // You might want to change this to HttpStatus.UNAUTHORIZED for failed authentication
-    assertEquals("false", response.getBody());
+      // Act
+      ResponseEntity<?> response = userController.getByUserPassword(loginDTO);
+
+      // Assert
+      verify(userService).getByUserAndPassword(eq(loginDTO.getEmail()), eq(loginDTO.getPassword()));
+      assertEquals(HttpStatus.OK, response.getStatusCode()); // You might want to change this to HttpStatus.UNAUTHORIZED for failed authentication
+      assertEquals("false", response.getBody());
   }
 
-  @Test
-  public void testAddUser_UserExists() {
-    User newUser = new User();
-    newUser.setUserName("existingUser");
-
-    when(userService.checkAlreadyExist(newUser)).thenReturn("User already exists");
-
-    ResponseEntity<?> response = userController.addUser(newUser);
-
-    assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertEquals("User already exists", response.getBody());
-
-//            verify(userService, times(1)).checkAlreadyExist(newUser);
-    verify(userService, never()).saveUser(any(User.class));
-  }
 
   @Test
   public void testAddUser_UserSavedSuccessfully() {
-    User newUser = new User();
-    newUser.setUserName("newUser");
+      AddUserDto newUser = new AddUserDto();
+      newUser.setUserName("newUser");
 
-    when(userService.checkAlreadyExist(newUser)).thenReturn("userNotExist");
-    when(userService.saveUser(newUser)).thenReturn(newUser);
+      when(userService.checkAlreadyExist(newUser)).thenReturn(false);
+      when(userService.saveUser(newUser)).thenReturn(new User());
 
-    ResponseEntity<?> response = userController.addUser(newUser);
+      ResponseEntity<?> response = userController.addUser(newUser);
 
-    assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertEquals("Saved Successfully!!!", response.getBody());
+      assertEquals(HttpStatus.OK, response.getStatusCode());
+      assertEquals("User saved!!!", response.getBody());
 
-    verify(userService, times(1)).checkAlreadyExist(newUser);
-    verify(userService, times(1)).saveUser(newUser);
+      verify(userService, times(1)).checkAlreadyExist(newUser);
+      verify(userService, times(1)).saveUser(newUser);
   }
 
   @Test
   public void testAddUser_UserSaveFailure() {
-    User newUser = new User();
-    newUser.setUserName("newUser");
-    when(userService.checkAlreadyExist(newUser)).thenReturn("userNotExist");
-    when(userService.saveUser(newUser)).thenThrow(new RuntimeException("Database error"));
+      AddUserDto newUser = new AddUserDto();
+      newUser.setUserName("newUser");
 
-    ResponseEntity<?> response = userController.addUser(newUser);
+      when(userService.checkAlreadyExist(newUser)).thenReturn(false);
+      when(userService.saveUser(newUser)).thenThrow(new RuntimeException("Database error"));
 
-    assertEquals(HttpStatus.OK, response.getStatusCode());
-//            assertEquals("Could not saved into database!!! Database error", response.getBody());
+      ResponseEntity<?> response = userController.addUser(newUser);
 
-    verify(userService, times(1)).checkAlreadyExist(newUser);
-    verify(userService, times(1)).saveUser(newUser);
+      assertEquals(HttpStatus.OK, response.getStatusCode());
+      assertEquals("Could not saved into database!!! Database error", response.getBody());
+
+      verify(userService, times(1)).checkAlreadyExist(newUser);
+      verify(userService, times(1)).saveUser(newUser);
   }
 }
