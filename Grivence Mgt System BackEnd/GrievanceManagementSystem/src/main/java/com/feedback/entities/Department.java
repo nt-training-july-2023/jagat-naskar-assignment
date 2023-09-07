@@ -47,12 +47,7 @@ public class Department {
   */
   @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
   private List<Ticket> ticketList = new ArrayList<>();
-  
-  @Override
-public String toString() {
-	return "Department [deptId=" + deptId + ", deptName=" + deptName + "]";
-}
-
+ 
   /**
    * get Id of the department.
    * @return id of the department.

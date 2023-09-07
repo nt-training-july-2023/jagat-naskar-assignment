@@ -51,6 +51,7 @@ function App() {
           <Route path="createDept" element={<NewDepartment />} />
           <Route path="viewDept" element={<AllDepartment />} />
           <Route path="deleteDept" element={<DeleteDepartment />} />
+          <Route path="createTicket" element={<Ticket/>} />
           <Route
             path="allFeedback"
             element={<div>All Feedback & Greviance Page</div>}
@@ -63,7 +64,7 @@ function App() {
           <Route path="myTicket" element={<div>My Ticket Page</div>} />
           <Route path="myDeptTicket" element={<div>My Department Ticket Page</div>} />
           <Route path="" element={<div></div>}/>
-          <Route path="createTicket" element={<div>Create Ticket Page</div>} />
+          <Route path="createTicket" element={<Ticket/>} />
           <Route path="" element={<div></div>} />
           <Route path="" element={<div></div>} />
         </Route>

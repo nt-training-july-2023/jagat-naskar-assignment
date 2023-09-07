@@ -25,35 +25,17 @@ public class TicketServiceImpl implements TicketService {
   public Ticket saveTicket(NewTicketDTO ticket) {
     LocalDateTime currentDateTime = LocalDateTime.now();
 
-
     Ticket newTicket = new Ticket();
     newTicket.setTicketTitle(ticket.getTicketTitle());
     newTicket.setTicketType(ticket.getTicketType());
     newTicket.setTicketStatus(ticket.getTicketStatus());
     newTicket.setTicketDescription(ticket.getTicketDescription());
-    
     newTicket.setDepartment(departmentRepository.findByDeptName(ticket.getDeptName()));
     newTicket.setUser(userRepository.getUserByUsername(ticket.getSenderEmail()));
     newTicket.setTicketAssignedBy(newTicket.getUser().getName());
-    
     newTicket.setTicketCreationTime(currentDateTime);
     newTicket.setLastUpdatedTime(currentDateTime);
-
-    
-    
-    
-        System.out.println("New Ticket ser = "+newTicket.toString());
     return ticketRepository.save(newTicket);
     }
 }
 
-
-//Long ticketId,---
-//String ticketTitle,---
-//String ticketType,---
-//EStatus ticketStatus,---
-//String ticketAssignedBy,---
-//String ticketCreationTime,----
-//String lastUpdatedTime,
-//User user,
-//Department department

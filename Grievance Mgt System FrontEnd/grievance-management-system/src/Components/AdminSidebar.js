@@ -51,6 +51,10 @@ function AdminSidebar() {
                 icon: <MessageFilled />,
               },
               {
+                label: <Link to="createTicket">Create Ticket</Link>,
+                icon: <PlusCircleFilled />,
+              },
+              {
                 label: <Link to="createDept">Create Department</Link>,
                 icon: <PlusCircleFilled />,
               },

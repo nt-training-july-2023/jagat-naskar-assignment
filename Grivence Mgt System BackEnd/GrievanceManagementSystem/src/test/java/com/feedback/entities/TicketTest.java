@@ -10,12 +10,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class TicketTest {
-	 @Test
+  @Test
   public void testGettersAndSetters() {
     Ticket ticket = new Ticket();
     ticket.setTicketId(1L);
     ticket.setTicketTitle("Title of the ticket");
-    ticket.setTicketType("Bug");
+    ticket.setTicketType("Feedback");
     ticket.setTicketStatus(EStatus.Open);
     ticket.setTicketAssignedBy("Jagat Naskar");
     LocalDateTime creationTime = LocalDateTime.of(2023, 9, 7, 12, 0);
@@ -24,9 +24,9 @@ class TicketTest {
     ticket.setLastUpdatedTime(lastUpdatedTime);
     ticket.setTicketDescription("Description of the ticket");
 
-//    assertEquals((1L), ticket.getTicketId());
+//    assertEquals((1L), ticket.getTicketId());  -->not worknig
     assertEquals("Title of the ticket", ticket.getTicketTitle());
-    assertEquals("Bug", ticket.getTicketType());
+    assertEquals("Feedback", ticket.getTicketType());
     assertEquals(EStatus.Open, ticket.getTicketStatus());
     assertEquals("Jagat Naskar", ticket.getTicketAssignedBy());
     assertEquals(creationTime, ticket.getTicketCreationTime());
@@ -38,10 +38,8 @@ class TicketTest {
   public void testUserAssociation() {
     User user = new User();
     user.setUserId(1);
-
     Ticket ticket = new Ticket();
     ticket.setUser(user);
-
     assertEquals(user, ticket.getUser());
   }
 
@@ -49,11 +47,9 @@ class TicketTest {
   public void testDepartmentAssociation() {
     Department department = new Department();
     department.setDeptId(1);
-    department.setDeptName("IT");
-
+    department.setDeptName("Sales");
     Ticket ticket = new Ticket();
     ticket.setDepartment(department);
-
     assertEquals(department, ticket.getDepartment());
   }
 
@@ -61,17 +57,13 @@ class TicketTest {
   public void testCommentListAssociation() {
     Comment comment1 = new Comment();
     comment1.setCommentId(1);
-
     Comment comment2 = new Comment();
     comment2.setCommentId(2);
-
     List<Comment> commentList = new ArrayList<>();
     commentList.add(comment1);
     commentList.add(comment2);
-
     Ticket ticket = new Ticket();
     ticket.setCommentList(commentList);
-
     assertEquals(commentList, ticket.getCommentList());
   }
 }

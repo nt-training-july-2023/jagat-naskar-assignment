@@ -1,11 +1,15 @@
 package com.feedback.serviceImplementation;
 
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.feedback.entities.Department;
 import com.feedback.payloads.department_dto.AddDepartemntDTO;
+import com.feedback.payloads.department_dto.DepartmentListDTO;
 import com.feedback.repository.DepartmentRepository;
 import com.feedback.service.DepartmentService;
 
@@ -40,4 +44,19 @@ public class DepartmentServiceImpl implements DepartmentService{
     
     return departmentRepository.save(d1);
   }
+
+  @Override
+  public List<DepartmentListDTO> getAllDepartments() {
+    System.out.println(".........ser1");
+    List<Department> departments = departmentRepository.findAll();
+    return departments.stream()
+        .map(department -> {
+          DepartmentListDTO deptDTO = new DepartmentListDTO();
+        deptDTO.setDeptId(department.getDeptId());
+        deptDTO.setDeptName(department.getDeptName());
+        return deptDTO;
+          })
+          .collect(Collectors.toList());
+  }
 }
+

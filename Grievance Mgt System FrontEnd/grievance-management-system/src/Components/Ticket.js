@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../Components/style/Ticket.css";
 import axios from "axios";
 
@@ -20,7 +20,7 @@ function Ticket() {
   const [assignToError, setAssignToError] = useState("");
   const [senderEmail, setSenderEmail] = useState("");
 
-  const departmentList = ["Select Department", "Dept1", "Dept2"];
+  const [departmentList, setDepartmentList] = useState([{deptId:'', deptName:''}]);
   const ticketTypeList = ["Select Ticket Type", "Feedback", "Grievance"];
   const statusList = ["Open", "Being Addressed", "Resolved"];
   //reset all the fields
@@ -39,10 +39,18 @@ function Ticket() {
     setDescriptionError("");
   };
 
+  //setting deptList from backend
+  useEffect(() => {
+    fetch('http://localhost:8080/api/dept/allDepartment')
+      .then(response => response.json())
+      .then(data => setDepartmentList(data))
+      .catch(error => console.error('Error:', error));
+      
+  }, []);
+
   //handle submit form
   const handleSubmit = (e) => {
-    e.preventDefault();
-
+    e.preventDefault();  
     let isValid = true;
 
     if (!ticketType || ticketType === "Select Ticket Type") {
@@ -141,9 +149,8 @@ function Ticket() {
           value={assignTo}
           onChange={(e) => setAssignTo(e.target.value)}
         >
-
           {departmentList.map((e) => (
-            <option value={e}>{e}</option> 
+            <option key={e.id} value={e.deptName}>{e.deptName}</option> 
           ))}
         </select>
         {assignToError && <p className="error">{assignToError}</p>}

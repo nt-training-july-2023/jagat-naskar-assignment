@@ -82,6 +82,11 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
+        <dependency>
+        	<groupId>com.empMgt</groupId>
+        	<artifactId>EmpManagement</artifactId>
+        	<version>0.0.1-SNAPSHOT</version>
+        </dependency>
 	</dependencies>
 
 	<build>
