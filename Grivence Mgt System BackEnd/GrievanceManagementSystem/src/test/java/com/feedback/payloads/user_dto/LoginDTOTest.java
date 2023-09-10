@@ -60,5 +60,38 @@ class LoginDTOTest {
     String expectedToString = "LoginDTO [email=jagat@nucleusteq.com, password=password123@Jme]";
     assertEquals(expectedToString, loginDTO.toString());
   }
+
+  @Test
+  void testEquals_SameObject() {
+      LoginDTO loginDTO = new LoginDTO("jmejagat@nucleusteq.com", "password123");
+      assertTrue(loginDTO.equals(loginDTO));
+  }
+
+  @Test
+  void testEquals_NullObject() {
+      LoginDTO loginDTO = new LoginDTO("jmejagat@nucleusteq.com", "password@123");
+      assertFalse(loginDTO.equals(null));
+  }
+
+  @Test
+  void testEquals_DifferentClass() {
+      LoginDTO loginDTO = new LoginDTO("jmejagat@nucleusteq.com", "jagat@123");
+      assertFalse(loginDTO.equals("false_Object"));
+  }
+
+  @Test
+  void testEquals_EqualObjects() {
+      LoginDTO loginDTO1 = new LoginDTO("jmejagat@nucleusteq.com", "passwordR");
+      LoginDTO loginDTO2 = new LoginDTO("jmejagat@nucleusteq.com", "passwordR");
+      assertTrue(loginDTO1.equals(loginDTO2));
+  }
+
+  @Test
+  void testEquals_UnequalObjects() {
+      LoginDTO loginDTO1 = new LoginDTO("jmejagat@nucleusteq.com", "password");
+      LoginDTO loginDTO2 = new LoginDTO("jmejagat@nucleusteq.com", "false_password");
+      assertFalse(loginDTO1.equals(loginDTO2));
+  }
+
 }
 

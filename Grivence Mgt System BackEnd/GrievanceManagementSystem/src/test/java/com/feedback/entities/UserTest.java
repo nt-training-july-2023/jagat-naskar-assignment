@@ -12,14 +12,14 @@ class UserTest {
   public void testGettersAndSetters() {
     User user = new User();
     user.setUserId(1);
-    user.setName("John Doe");
+    user.setName("Jagat Naskaer");
     user.setUserName("johndoe");
     user.setPassword("password");
     user.setUserType(ERole.admin);
     user.setfinalPassword(true);
 
     assertEquals(1, user.getUserId());
-    assertEquals("John Doe", user.getName());
+    assertEquals("Jagat Naskaer", user.getName());
     assertEquals("johndoe", user.getUserName());
     assertEquals("password", user.getPassword());
     assertEquals(ERole.admin, user.getUserType());
@@ -59,8 +59,8 @@ class UserTest {
     assertEquals(ticketList, user.getTicketList());
   }
 
-	    @Test
-	    public void testCommentListAssociation() {
+  @Test
+  public void testCommentListAssociation() {
     Comment comment1 = new Comment();
     comment1.setCommentId(1);
 
@@ -75,5 +75,34 @@ class UserTest {
     user.setCommentList(commentList);
 
     assertEquals(commentList, user.getCommentList());
+  }
+
+
+  @Test
+  public void userConstructorTest() {
+      // Create a user using the constructor
+      int userId = 1;
+      String name = "Jagat Naskaer";
+      String userName = "jmee@nucleusteq.com";
+      String password = "jagat123";
+      ERole userType = ERole.admin;
+      Boolean finalPassword = true;
+      List<Comment> commentList = new ArrayList<>();
+      Department department = new Department();
+
+      User user = new User(userId, name, userName, password, userType, finalPassword, commentList, department);
+
+      // Check if user is not null
+      assertNotNull(user);
+
+      // Check if user properties are set correctly
+      assertEquals(userId, user.getUserId());
+      assertEquals(name, user.getName());
+      assertEquals(userName, user.getUserName());
+      assertEquals(password, user.getPassword());
+      assertEquals(userType, user.getUserType());
+      assertEquals(finalPassword, user.getfinalPassword());
+      assertEquals(commentList, user.getCommentList());
+      assertEquals(department, user.getDepartment());
   }
 }

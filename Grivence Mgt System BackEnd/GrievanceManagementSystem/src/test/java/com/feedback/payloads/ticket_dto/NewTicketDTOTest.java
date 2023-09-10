@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import com.feedback.entities.EStatus;
+import com.feedback.entities.Ticket;
 
 class NewTicketDTOTest {
 
@@ -33,5 +34,25 @@ class NewTicketDTOTest {
               "ticketDescription=Description, senderEmail=email@example.com, deptName=IT]";
 
       assertEquals(expected, ticket.toString());
+  }
+  
+  @Test
+  public void testGetTicketId() {
+	  Ticket ticket = new Ticket();
+      Long expected = 123L; // Set an expected value
+      ticket.setTicketId(expected); // Set the ticketId
+      Long actual = ticket.getTicketId(); // Get the ticketId
+
+      assertEquals(expected, actual);
+  }
+
+  @Test
+  public void testSetTicketId() {
+	  Ticket ticket = new Ticket();
+      Long expected = 456L; // Set an expected value
+      ticket.setTicketId(expected); // Set the ticketId
+      Long actual = ticket.getTicketId(); // Get the ticketId
+
+      assertEquals(expected, actual);
   }
 }

@@ -17,7 +17,6 @@ class DepartmentTest {
 
   @Test
   public void testGettersAndSetters() {
-    // Set values using setters
     department.setDeptId(1);
     department.setDeptName("HR");
 
@@ -35,7 +34,6 @@ class DepartmentTest {
     ticketList.add(ticket2);
     department.setTicketList(ticketList);
 
-    // Use getters to retrieve values
     assertEquals(1, department.getDeptId());
     assertEquals("HR", department.getDeptName());
     assertEquals(userList, department.getUser());
@@ -56,13 +54,34 @@ class DepartmentTest {
   }
 
   @Test
-  public void testToString() {
-    department.setDeptId(3);
-    department.setDeptName("Finance");
+  public void departmentConstructorTest() {
+      int deptId = 1;
+      String deptName = "IT Department";
+      List<User> userList = new ArrayList<>();
+      List<Ticket> ticketList = new ArrayList<>();
 
-    String expectedToString =
-      "Department [deptId=3, deptName=Finance, user=[], ticketList=[]]";
+      Department department = new Department(deptId, deptName, userList, ticketList);
 
-    assertEquals(expectedToString, department.toString());
+      assertNotNull(department);
+
+      assertEquals(deptId, department.getDeptId());
+      assertEquals(deptName, department.getDeptName());
+      assertEquals(userList, department.getUser());
+      assertEquals(ticketList, department.getTicketList());
   }
+  
+  @Test
+  void testFieldConstructor() {
+      // Arrange
+      int expectedDeptId = 1;
+      String expectedDeptName = "IT";
+
+      // Act
+      Department department = new Department(expectedDeptId, expectedDeptName);
+
+      // Assert
+      assertEquals(expectedDeptId, department.getDeptId());
+      assertEquals(expectedDeptName, department.getDeptName());
+  }
+
 }

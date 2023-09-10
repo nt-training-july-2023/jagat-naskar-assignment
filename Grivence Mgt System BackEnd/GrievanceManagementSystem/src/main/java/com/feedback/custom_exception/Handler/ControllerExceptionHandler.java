@@ -19,7 +19,7 @@ public class ControllerExceptionHandler {
     public String departmentNotFoundException(DepartmentNotFoundException ex) {
         return ex.getMessage();
     }
-    
+
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @org.springframework.web.bind.annotation.ExceptionHandler(UserNotFoundException.class)
     public String userNotFoundException(UserNotFoundException ex) {

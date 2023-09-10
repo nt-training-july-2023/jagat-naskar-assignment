@@ -3,7 +3,6 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Menu } from "antd";
 import "../Components/style/AdminSidebar.css";
 import Header from "../Components/Header";
-import AdminRoute from "./AdminRoute";
 
 import {
   HomeFilled,
@@ -16,6 +15,7 @@ import {
   FileAddFilled,
   UnorderedListOutlined,
 } from "@ant-design/icons";
+import { doLogout } from "..";
 
 
 
@@ -23,8 +23,9 @@ function AdminSidebar() {
   let navigatee = useNavigate();
 
   const handleLogout = () => {
+      // localStorage.clear();
+      sessionStorage.clear();
       navigatee("/");
-      localStorage.clear();
   };
   return (
     <>
@@ -33,7 +34,7 @@ function AdminSidebar() {
         <div className="menu">
           <Menu
             items={[
-              { label: <Link to="/">Home</Link>, icon: <HomeFilled /> },
+              { label: <Link to="adminHome">Home</Link>, icon: <HomeFilled /> },
               {
                 label: <Link to="allUsers">All Users</Link>,
                 icon: <MehFilled />,

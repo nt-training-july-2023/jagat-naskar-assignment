@@ -1,10 +1,26 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-// import {BrowserRouter} from 'react-router-dom';
+
+// import AuthProvider from '../src/Components/AuthContext';
+import {BrowserRouter} from 'react-router-dom';
+
+//checking if logged in or not
+export const isLoggedIn = () => {
+  console.log("Jagat");
+  const sessionUserName = sessionStorage.getItem("session_user_name");
+  if(sessionUserName != null && sessionUserName !== ""){
+    return true;
+  }
+  else return false;
+}
+
+export const setLoggedIn = (isLoggedIn) => {
+  let l =  isLoggedIn ? "true" : "false";
+  sessionStorage.setItem("isLoggedIn",l);
+};
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

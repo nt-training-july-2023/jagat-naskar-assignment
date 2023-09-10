@@ -33,6 +33,7 @@ public class UserController {
   public ResponseEntity<?> addUser(@Valid @RequestBody final AddUserDto user) {
     System.out.println("____________________________________");
     System.out.println("Controller, userDTo = "+user);
+    
     String message = "";
     if((userService.checkAlreadyExist(user) == true)) {
       message = "UserName(email) already exist!!!";
@@ -42,7 +43,6 @@ public class UserController {
     try {
     	System.out.println("con2");
       savedUser = userService.saveUser(user);
-      System.out.println("con3 savedUser = "+savedUser);
       if(savedUser != null) {
           message = "Saved Successfully!!!";
       }

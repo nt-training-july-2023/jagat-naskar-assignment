@@ -1,9 +1,12 @@
 package com.feedback;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest(classes = GrievanceManagementSystemApplication.class)
 class GrievanceManagementSystemApplicationTest {
 
   @Test
@@ -12,8 +15,13 @@ class GrievanceManagementSystemApplicationTest {
   }
 
   @Test
+  void contextLoads() {
+  assertTrue(true);
+  }
+  
+  @Test
   void testMain() {
-	  assertTrue(true);
+    assertTrue(true);
   }
 }
 

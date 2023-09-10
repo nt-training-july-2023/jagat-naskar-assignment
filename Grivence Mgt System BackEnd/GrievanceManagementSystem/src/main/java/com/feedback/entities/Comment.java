@@ -48,7 +48,7 @@ public class Comment {
   private Ticket ticket;
 
   public Ticket getTicket() {
-	  return ticket;
+    return ticket;
   }
   
   public void setTicket(Ticket tickett) {

@@ -35,8 +35,8 @@ class AddDepartemntDTOTest {
 
   @Test
   public void testEqualsAndHashCode() {
-    AddDepartemntDTO departmentDTO1 = new AddDepartemntDTO("IT");
-    AddDepartemntDTO departmentDTO2 = new AddDepartemntDTO("IT");
+    AddDepartemntDTO departmentDTO1 = new AddDepartemntDTO("Marketing");
+    AddDepartemntDTO departmentDTO2 = new AddDepartemntDTO("Marketing");
     AddDepartemntDTO departmentDTO3 = new AddDepartemntDTO("Finance");
 
     assertEquals(departmentDTO1, departmentDTO2);
@@ -51,6 +51,41 @@ class AddDepartemntDTOTest {
     AddDepartemntDTO departmentDTO = new AddDepartemntDTO("Marketing");
     String expectedToString = "AddDepartemntDTO [deptName=Marketing]";
     assertEquals(expectedToString, departmentDTO.toString());
+  }
+  
+
+  
+  
+  @Test
+  void testEquals_SameObject() {
+      AddDepartemntDTO dto = new AddDepartemntDTO("Marketing");
+      assertTrue(dto.equals(dto));
+  }
+
+  @Test
+  void testEquals_NullObject() {
+      AddDepartemntDTO dto = new AddDepartemntDTO("Marketing");
+      assertFalse(dto.equals(null));
+  }
+
+  @Test
+  void testEquals_DifferentClass() {
+      AddDepartemntDTO dto = new AddDepartemntDTO("Marketing");
+      assertFalse(dto.equals("Not an AddDepartemntDTO object"));
+  }
+
+  @Test
+  void testEquals_EqualObjects() {
+      AddDepartemntDTO dto1 = new AddDepartemntDTO("Marketing");
+      AddDepartemntDTO dto2 = new AddDepartemntDTO("Marketing");
+      assertTrue(dto1.equals(dto2));
+  }
+
+  @Test
+  void testEquals_UnequalObjects() {
+      AddDepartemntDTO dto1 = new AddDepartemntDTO("Marketing");
+      AddDepartemntDTO dto2 = new AddDepartemntDTO("HR");
+      assertFalse(dto1.equals(dto2));
   }
 
 }

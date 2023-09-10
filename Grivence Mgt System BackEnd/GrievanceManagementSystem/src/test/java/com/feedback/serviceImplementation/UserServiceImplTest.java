@@ -8,6 +8,10 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,22 +26,16 @@ import com.feedback.repository.DepartmentRepository;
 import com.feedback.repository.UserRepository;
 import com.feedback.service.UserService;
 
-
 @SpringBootTest
 class UserServiceImplTest {
-	@Autowired
-	@MockBean
-	UserRepository userRepository;
-	@Autowired
-	@MockBean
-	DepartmentRepository departmentRepository;
-	@Autowired
-	UserService userService;
-  
-  
-  
-
-
+  @Autowired
+  @MockBean
+  UserRepository userRepository;
+  @Autowired
+  @MockBean
+  DepartmentRepository departmentRepository;
+  @Autowired
+  UserService userService;
 
 @Test
 public void testSaveUser_Success() {
@@ -69,8 +67,6 @@ public void testSaveUser_Success() {
     verify(userRepository, times(1)).save(any(User.class));
     assertEquals(newUser, savedUser);
 }
-	
-	
 
 @Test
 public void testSaveUser_Failure() {
@@ -111,11 +107,35 @@ public void testCheckAlreadyExist_UserExists() {
     assertTrue(result);
 }
 
+@Test
+void testGetAllUsers() {
+    User user1 = new User(/* Initialize user data */);
+    User user2 = new User(/* Initialize user data */);
+    List<User> expectedUsers = Arrays.asList(user1, user2);
 
+    when(userRepository.findAll()).thenReturn(expectedUsers);
 
+    List<User> result = userService.getAllUsers();
 
+    assertEquals(expectedUsers, result);
+}
 
+@Test
+void testGetUserById() {
+    // Arrange
+    int userId = 1;
+    User expectedUser = new User(/* Initialize user data */);
 
+    // Mock the behavior of userRepository.findById()
+    when(userRepository.findById(userId)).thenReturn(Optional.of(expectedUser));
+
+    // Act
+    User result = userService.getUserById(userId);
+
+    // Assert
+    assertNotNull(result);
+    assertEquals(expectedUser, result);
+}
 
 @Test
 public void testCheckAlreadyExist_UserDoesNotExist() {
@@ -137,9 +157,7 @@ public void testCheckAlreadyExist_UserDoesNotExist() {
     // Verify that userRepository.existsByUserName was called with the correct argument
     verify(userRepository, times(2)).existsByUserName(newUser.getUserName());
 }
-  
-  
-  
+
   @Test
   public void testValidPasswordAndUserFound() {
     User u1 = new User();
@@ -158,4 +176,49 @@ public void testCheckAlreadyExist_UserDoesNotExist() {
     String result = userService.getByUserAndPassword("nonExistentUser", "password");
     assertEquals("false", result);
   }
+
+  @Test
+  void testGetByUserAndPassword_UserExists() {
+      String userName = "testUser";
+      String password = "testPassword";
+      User u1 = new User();
+      u1.setUserName(userName);
+      u1.setPassword(password);
+      u1.setUserType(ERole.admin);
+
+      when(userRepository.getUserByUsername(userName)).thenReturn(u1);
+
+      String result = userService.getByUserAndPassword(userName, password);
+
+      assertEquals("true_admin", result);
+  }
+
+  @Test
+  void testGetByUserAndPassword_UserDoesNotExist() {
+      String userName = "testUser";
+      String password = "testPassword";
+
+      when(userRepository.getUserByUsername(userName)).thenReturn(null);
+
+      String result = userService.getByUserAndPassword(userName, password);
+
+      assertEquals("false", result);
+  }
+
+  @Test
+  void testGetByUserAndPassword_IncorrectPassword() {
+      String userName = "testUser";
+      String password = "incorrectPassword";
+      User u1 = new User();
+      u1.setUserName(userName);
+      u1.setPassword("correctPassword");
+      u1.setUserType(ERole.admin);
+
+      when(userRepository.getUserByUsername(userName)).thenReturn(u1);
+
+      String result = userService.getByUserAndPassword(userName, password);
+
+      assertEquals("false", result);
+  }
+
 }

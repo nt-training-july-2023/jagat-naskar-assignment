@@ -42,15 +42,15 @@ class TicketServiceImplTest {
   public void testSaveTicket() {
     // Create a sample NewTicketDTO
     NewTicketDTO newTicketDTO = new NewTicketDTO();
-    newTicketDTO.setTicketTitle("Sample Ticket");
-    newTicketDTO.setTicketType("Sample Type");
+    newTicketDTO.setTicketTitle("Ticket title");
+    newTicketDTO.setTicketType("Feedback");
     newTicketDTO.setTicketStatus(EStatus.Open);
-    newTicketDTO.setTicketDescription("Sample Description");
-    newTicketDTO.setDeptName("Sample Department");
-    newTicketDTO.setSenderEmail("sample@example.com");
+    newTicketDTO.setTicketDescription("My Description ...");
+    newTicketDTO.setDeptName("HR");
+    newTicketDTO.setSenderEmail("jagat@nucleusteq.com");
 
-    when(departmentRepository.findByDeptName("Sample Department")).thenReturn(new Department());
-    when(userRepository.getUserByUsername("sample@example.com")).thenReturn(new User());
+    when(departmentRepository.findByDeptName("jagat@nucleusteq")).thenReturn(new Department());
+    when(userRepository.getUserByUsername("jagat@nucleusteq.com")).thenReturn(new User());
     when(ticketRepository.save(any(Ticket.class))).thenReturn(new Ticket());
 
     Ticket savedTicket = ticketService.saveTicket(newTicketDTO);

@@ -3,6 +3,7 @@ import "../style/Login.css";
 import axios from "axios";
 import React, { useState } from 'react';
 import CustomAlert from "./CustomAlert";
+import { doLogin, setLoggedIn } from '../..';
 
 
 const Login = (props) => {
@@ -45,10 +46,11 @@ const Login = (props) => {
         console.log(res.data);
         if (res.data === "true_admin") {
           sessionStorage.setItem("session_user_name", post.email);
-          console.log("session_user_name = "+post.email);
-          navigatee("/admin/adminHome");
+          setLoggedIn("true");
+          navigatee("/admin");
         }else if (res.data === "true_member") {
-            navigatee("member/memberHome");
+          sessionStorage.setItem("session_user_name", post.email);
+          navigatee("/member");
         }
         else if (res.data === "false") {
             //showing User is not valid

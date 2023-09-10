@@ -162,8 +162,8 @@ public void setCommentList(List<Comment> commentList) {
      *
      * @param ticketTitlee The new ticket title.
      */
-    public void setTicketId(final Long ticketIdd) {
-        this.ticketId = ticketIdd;
+    public void setTicketId(final long l) {
+        this.ticketId = l;
     }
     
     /**

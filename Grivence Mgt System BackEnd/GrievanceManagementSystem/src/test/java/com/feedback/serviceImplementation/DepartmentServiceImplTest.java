@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -14,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.feedback.entities.Department;
 import com.feedback.payloads.department_dto.AddDepartemntDTO;
+import com.feedback.payloads.department_dto.DepartmentListDTO;
 import com.feedback.repository.DepartmentRepository;;
 
 @TestInstance(Lifecycle.PER_CLASS)
@@ -78,5 +83,33 @@ class DepartmentServiceImplTest {
     // Assert that the result is the saved department object
     assertNotNull(result);
     assertEquals("IT", result.getDeptName());
+  }
+
+  @Test
+  public void testGetAllDepartments() {
+    Department department1 = new Department();
+    department1.setDeptId(1);
+    department1.setDeptName("IT");
+
+    Department department2 = new Department();
+    department2.setDeptId(2);
+    department2.setDeptName("HR");
+
+    List<Department> sampleDepartments = Arrays.asList(department1, department2);
+
+    when(departmentRepository.findAll()).thenReturn(sampleDepartments);
+
+    List<DepartmentListDTO> result = departmentService.getAllDepartments();
+
+    List<DepartmentListDTO> expected = sampleDepartments.stream()
+      .map(department -> {
+        DepartmentListDTO deptDTO = new DepartmentListDTO();
+        deptDTO.setDeptId(department.getDeptId());
+        deptDTO.setDeptName(department.getDeptName());
+        return deptDTO;
+        })
+      .collect(Collectors.toList());
+
+    assertEquals(expected, result);
   }
 }
