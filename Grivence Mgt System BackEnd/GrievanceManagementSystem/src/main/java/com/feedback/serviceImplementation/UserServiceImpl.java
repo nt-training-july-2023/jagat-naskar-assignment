@@ -1,10 +1,13 @@
 package com.feedback.serviceImplementation;
 
 import com.feedback.custom_exception.DepartmentNotFoundException;
+import com.feedback.custom_exception.PasswordChangeException;
+import com.feedback.custom_exception.UserNotFoundException;
 import com.feedback.entities.Department;
 import com.feedback.entities.ERole;
 import com.feedback.entities.User;
 import com.feedback.payloads.user_dto.AddUserDto;
+import com.feedback.payloads.user_dto.PasswordChangeDTOin;
 import com.feedback.repository.DepartmentRepository;
 import com.feedback.repository.UserRepository;
 import com.feedback.service.UserService;
@@ -13,7 +16,10 @@ import java.util.List;
 
 import org.aspectj.lang.reflect.DeclareErrorOrWarning;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
  * Implementation of UserService interface.
@@ -105,7 +111,7 @@ public class UserServiceImpl implements UserService {
   public String getByUserAndPassword(final String userName, final String password) {
     User u1 = null;
     try {
-    	if(!userRepository.existsByUserName(userName)) {
+      if(!userRepository.existsByUserName(userName)) {
             return "false";
           }
       u1 = userRepository.getUserByUsername(userName);
@@ -133,4 +139,41 @@ public class UserServiceImpl implements UserService {
     return true;
   }
 
+  public String passwordChangedSuccess(PasswordChangeDTOin request) {
+    String userName = request.getUserName();
+    String oldPassword = request.getOldPassword();
+    String newPassword = request.getNewPassword();
+    String confirmNewPassword = request.getConfirmNewPassword();
+  if(!userRepository.existsByUserName(userName))
+      throw new UserNotFoundException(userName);
+  User user = new User();
+  user = userRepository.getUserByUsername(userName);
+  String userPassword = user.getPassword();
+  if(!userPassword.equals(oldPassword)) {
+    return "Incorrect old password ";
+  }
+  if(!newPassword.equals(confirmNewPassword)) {
+    return "newPassword does not match with confirm password";
+  }
+  if(userPassword.equals(oldPassword)) {
+    if(newPassword.equals(confirmNewPassword)) {
+      user.setPassword(newPassword);
+      user.setfinalPassword(true);//for first time user
+      userRepository.save(user);
+      return "Password changed successfully";
+    }
+  }
+    return "Sorry, could not change the password.";
+    
+    
+  }
+  
+  
+  
+//Add ExceptionHandler for PasswordChangeException
+// @ExceptionHandler(PasswordChangeException.class)
+// public ResponseEntity<String> handlePasswordChangeException(PasswordChangeException ex) {
+//     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+// }
+  
 }

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import "../Components/style/Ticket.css";
+import "../Components/style/UpdateTicket.css";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const handleSubmit = () => {
   console.log("OK");
 };
 
-function Ticket() {
+function UpdateTicket() {
   const [ticketType, setTicketType] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -18,27 +19,33 @@ function Ticket() {
   const [titleError, setTitleError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
   const [assignToError, setAssignToError] = useState("");
+  const [statusError, setStatusError] = useState("");
   const [senderEmail, setSenderEmail] = useState("");
 
   const [departmentList, setDepartmentList] = useState([
     { deptId: "", deptName: "" },
   ]);
   const ticketTypeList = ["Select Ticket Type", "Feedback", "Grievance"];
-  const statusList = ["Open", "Being Addressed", "Resolved"];
+  const statusList = ["Select Status", "Open", "Being Addressed", "Resolved"];
   //reset all the fields
   const resetAllFields = () => {
     setTicketType("");
     setTitle("");
     setDescription("");
-    setAssignTo("select Detartment");
-    setStatus("select status");
+    setAssignTo("Select Detartment");
+    setStatus("Select status");
   };
-
+  //onclosing, navigating to previous page
+  const navigate = useNavigate();
+  const nevigatePreviousPage = () =>{
+    navigate(-1);
+  }
   //reset all error
   const resetFormError = () => {
     setTicketTypeError("");
     setTitleError("");
     setDescriptionError("");
+    setStatusError("");
   };
 
   //setting deptList from backend
@@ -80,6 +87,11 @@ function Ticket() {
       isValid = false;
     }
 
+    if (!status || status === "Select Status" || assignTo === "") {
+      setStatusError("Select Status");
+      isValid = false;
+    }
+
     if (isValid) {
       console.log(
         "Ticket Data = " + ticketType,
@@ -95,11 +107,12 @@ function Ticket() {
         .post("http://localhost:8080/api/tickets/addTicket", {
           ticketTitle: title,
           ticketType: ticketType,
-          ticketStatus: "Open",
+          ticketStatus: status,
           ticketDescription: description,
           deptName: assignTo,
+          ticketStatus: status,
           // senderEmail: btoa(sessionStorage.getItem("session_user_name")) -->later change it
-          senderEmail: btoa("jme@nucleusteq.com")
+          senderEmail: btoa("jme@nucleusteq.com"),
         })
         .then((res) => {
           console.log(res.data);
@@ -112,7 +125,7 @@ function Ticket() {
   return (
     <div className="tickets-container">
       <form className="ticket-form" onSubmit={handleSubmit}>
-        <h2>Add Ticket Details</h2>
+        <h2>Update Ticket Details</h2>
         <label className="ticketType">Ticket Type</label>
 
         <select
@@ -170,13 +183,13 @@ function Ticket() {
           id="status"
           name="status"
           value={status}
-          disabled
           onChange={(e) => setStatus(e.target.value)}
         >
           {statusList.map((e) => (
             <option value={e}>{e}</option>
           ))}
         </select>
+        {statusError && <p className="error">{statusError}</p>}
 
         <label className="comment">Comment</label>
         <select
@@ -187,12 +200,16 @@ function Ticket() {
           onChange={(e) => setComment(e.target.value)}
         ></select>
         <button type="submit">Submit</button>
+        {/* <Link to="/"> */}
+          <button className="nevigate-back" onClick={nevigatePreviousPage}>Close</button>
+        {/* </Link> */}
+        {/* need to update the link, later, Your UpdateTicket component */}
       </form>
     </div>
   );
 }
 
-export default Ticket;
+export default UpdateTicket;
 
 // theese should be visibe in the ticket
 

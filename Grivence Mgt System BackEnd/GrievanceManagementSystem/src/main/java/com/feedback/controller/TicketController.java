@@ -27,7 +27,7 @@ public class TicketController {
       throw new NullPointerFromFrontendException("Ticket data not received in the backend.");
     }
     String message = "";
-    Ticket savedTicket = null;
+    Ticket savedTicket = new Ticket();
     savedTicket = ticketService.saveTicket(ticket);
     if(savedTicket != null){
       message = "Ticket saved Successfully!!!";

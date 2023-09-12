@@ -3,20 +3,39 @@ package com.feedback.controller;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Base64;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.feedback.entities.User;
 import com.feedback.payloads.user_dto.AddUserDto;
 import com.feedback.payloads.user_dto.LoginDTO;
+import com.feedback.payloads.user_dto.PasswordChangeDTOin;
 import com.feedback.service.UserService;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.Base64Utils;
 
-@ExtendWith(MockitoExtension.class)
+@RunWith(SpringRunner.class)
+@WebMvcTest(UserController.class)
 public class UserControllerTest {
   @InjectMocks
   private UserController userController;
@@ -24,24 +43,35 @@ public class UserControllerTest {
   @Mock
   private UserService userService;
 
+    @Autowired
+    private MockMvc mockMvc;
+
+  @BeforeEach
+  public void setUp() {
+      MockitoAnnotations.openMocks(this);
+      mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
+  }
+
+
   @Test
-  public void testGetByUserPassword_SuccessfulAuthentication() {
+  public void testGetByUserPassword_SuccessfulAuthentication() throws Exception {
       // Arrange
       LoginDTO loginDTO = new LoginDTO();
-      loginDTO.setEmail("admin@nucleusteq.com");
-      loginDTO.setPassword("admin");
+      loginDTO.setEmail(Base64.getEncoder().encodeToString("admin@nucleusteq.com".getBytes()));
+      loginDTO.setPassword(Base64.getEncoder().encodeToString("admin".getBytes()));
 
-      when(userService.getByUserAndPassword(eq(loginDTO.getEmail()), eq(loginDTO.getPassword())))
-              .thenReturn("true_admin"); // Assuming successful authentication for admin user
+      String expectedResult = "true_admin";
+      when(userService.getByUserAndPassword(anyString(), anyString())).thenReturn(expectedResult);
 
-      // Act
-      ResponseEntity<?> response = userController.getByUserPassword(loginDTO);
-
-      // Assert
-      verify(userService).getByUserAndPassword(eq(loginDTO.getEmail()), eq(loginDTO.getPassword()));
-      assertEquals(HttpStatus.OK, response.getStatusCode());
-      assertEquals("true_admin", response.getBody());
+      Object mockMvc;
+	// Act & Assert
+      mockMvc.perform(post("/login")
+              .contentType(MediaType.APPLICATION_JSON)
+              .content(new ObjectMapper().writeValueAsString(loginDTO)))
+              .andExpect(status().isOk())
+              .andExpect(content().string(expectedResult));
   }
+
 
   @Test
   public void testGetByUserPassword_FailedAuthentication() {
@@ -95,5 +125,37 @@ public class UserControllerTest {
 
       verify(userService, times(1)).checkAlreadyExist(newUser);
       verify(userService, times(1)).saveUser(newUser);
+  }
+  
+  @Test
+  public void testChangePassword_PasswordChangedSuccessfully() {
+      PasswordChangeDTOin request = new PasswordChangeDTOin();
+      request.setOldPassword("oldPassword");
+      request.setNewPassword("newPassword");
+
+      when(userService.passwordChangedSuccess(request)).thenReturn("Password changed successfully.");
+
+      ResponseEntity<String> response = userController.changePassword(request);
+
+      assertEquals(HttpStatus.OK, response.getStatusCode());
+      assertEquals("Password changed successfully.", response.getBody());
+
+      verify(userService, times(1)).passwordChangedSuccess(request);
+  }
+  
+  @Test
+  public void testChangePassword_FailedScenario() {
+      PasswordChangeDTOin request = new PasswordChangeDTOin();
+      request.setOldPassword("wrongOldPassword");
+      request.setNewPassword("newPassword");
+
+      when(userService.passwordChangedSuccess(request)).thenReturn(null); // Simulating a failure
+
+      ResponseEntity<String> response = userController.changePassword(request);
+
+      assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+      assertNull(response.getBody());
+
+      verify(userService, times(1)).passwordChangedSuccess(request);
   }
 }

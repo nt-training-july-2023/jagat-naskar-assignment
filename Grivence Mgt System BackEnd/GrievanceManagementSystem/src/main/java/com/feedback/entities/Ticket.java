@@ -97,7 +97,7 @@ public class Ticket {
 
   @ManyToOne
 //  @JoinColumn(name = "deptId")
-  private Department department;
+  private Department department; 
   
   @OneToMany(mappedBy = "user1", cascade = CascadeType.ALL)
   private List<Comment> commentList = new ArrayList<>();

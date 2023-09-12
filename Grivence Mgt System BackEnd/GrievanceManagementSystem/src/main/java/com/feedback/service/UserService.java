@@ -2,6 +2,7 @@ package com.feedback.service;
 
 import com.feedback.entities.User;
 import com.feedback.payloads.user_dto.AddUserDto;
+import com.feedback.payloads.user_dto.PasswordChangeDTOin;
 
 import java.util.List;
 
@@ -50,4 +51,11 @@ public interface UserService {
    * @return if the user exist or not by id or by mail.
    */
   boolean checkAlreadyExist(AddUserDto user);
+  
+  /**
+   * interface of passwordChangedSuccess.
+   * @param request
+   * @return true or false;
+   */
+  String passwordChangedSuccess(PasswordChangeDTOin request);
 }
