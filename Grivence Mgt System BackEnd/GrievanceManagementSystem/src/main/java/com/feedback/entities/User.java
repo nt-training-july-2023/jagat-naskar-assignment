@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
 /**
  * Represents a user entity in the system.
  * This class defines properties and methods related to users.
@@ -55,7 +55,7 @@ public class User {
    * The type of the user (e.g., admin, regular).
    */
   @Column
-//  @Convert(converter = ERoleConverter.class)
+  @Convert(converter = ERoleConverter.class)
   private ERole userType;
 
   /**
@@ -272,4 +272,12 @@ public class User {
   public User(){
     super();
   }
+
+@Override
+public String toString() {
+	return "User [userId=" + userId + ", name=" + name + ", userName=" + userName + ", password=" + password
+			+ ", userType=" + userType + ", finalPassword=" + finalPassword + "]";
+}
+  
+  
 }

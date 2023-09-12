@@ -10,7 +10,7 @@ function Ticket() {
   const [ticketType, setTicketType] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [assignTo, setAssignTo] = useState("Dept1");
+  const [assignTo, setAssignTo] = useState("");
   const [status, setStatus] = useState("select");
   const [comment, setComment] = useState("select");
 
@@ -20,7 +20,9 @@ function Ticket() {
   const [assignToError, setAssignToError] = useState("");
   const [senderEmail, setSenderEmail] = useState("");
 
-  const [departmentList, setDepartmentList] = useState([{deptId:'', deptName:''}]);
+  const [departmentList, setDepartmentList] = useState([
+    { deptId: "", deptName: "" },
+  ]);
   const ticketTypeList = ["Select Ticket Type", "Feedback", "Grievance"];
   const statusList = ["Open", "Being Addressed", "Resolved"];
   //reset all the fields
@@ -33,7 +35,7 @@ function Ticket() {
   };
 
   //reset all error
-  const clearAllErrors = () => {
+  const resetFormError = () => {
     setTicketTypeError("");
     setTitleError("");
     setDescriptionError("");
@@ -41,23 +43,21 @@ function Ticket() {
 
   //setting deptList from backend
   useEffect(() => {
-    fetch('http://localhost:8080/api/dept/allDepartment')
-      .then(response => response.json())
-      .then(data => setDepartmentList(data))
-      .catch(error => console.error('Error:', error));
-      
+    fetch("http://localhost:8080/api/dept/allDepartment")
+      .then((response) => response.json())
+      .then((data) => setDepartmentList((previous) => [...previous, ...data]))
+      .catch((error) => console.error("Error:", error));
   }, []);
 
   //handle submit form
   const handleSubmit = (e) => {
-    e.preventDefault();  
+    e.preventDefault();
     let isValid = true;
 
     if (!ticketType || ticketType === "Select Ticket Type") {
       setTicketTypeError("Please enter a ticket type.");
       isValid = false;
-    }
-    else {
+    } else {
       setTicketTypeError("");
     }
 
@@ -75,8 +75,8 @@ function Ticket() {
       setDescriptionError("");
     }
 
-    if(!assignTo || assignTo === "Select Department"){
-      setAssignToError("Select your department")
+    if (!assignTo || assignTo === "Select Department" || assignTo === "") {
+      setAssignToError("Select your department");
       isValid = false;
     }
 
@@ -91,16 +91,21 @@ function Ticket() {
       // Proceed with submitting the form
       // Your logic here
       //Integrat
-      axios.post("http://localhost:8080/api/tickets/addTicket",{
-        ticketTitle:"Feedback for HR",
-        ticketType:"Feedback",
-        ticketStatus:"Open",
-        ticketDescription:"description fdsf",
-        assignTo:"HR",
-        senderEmail:sessionStorage.getItem("session_user_name")
-      }).then(res=>{
-        console.log(res.data)
-      });
+      axios
+        .post("http://localhost:8080/api/tickets/addTicket", {
+          ticketTitle: title,
+          ticketType: ticketType,
+          ticketStatus: "Open",
+          ticketDescription: description,
+          deptName: assignTo,
+          // senderEmail: btoa(sessionStorage.getItem("session_user_name")) -->later change it
+          senderEmail: btoa("jme@nucleusteq.com")
+        })
+        .then((res) => {
+          console.log(res.data);
+          resetFormError();
+          resetAllFields();
+        });
     }
   };
 
@@ -149,8 +154,13 @@ function Ticket() {
           value={assignTo}
           onChange={(e) => setAssignTo(e.target.value)}
         >
+          <option value="" disabled>
+            Select a Department
+          </option>
           {departmentList.map((e) => (
-            <option key={e.id} value={e.deptName}>{e.deptName}</option> 
+            <option key={e.id} value={e.deptName}>
+              {e.deptName}
+            </option>
           ))}
         </select>
         {assignToError && <p className="error">{assignToError}</p>}

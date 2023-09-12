@@ -13,6 +13,10 @@
     background-color: #5a87878a;
   }
   
+  .error {
+    color: rgb(255, 0, 0);
+    font-size: smaller;
+  }
   .new-department-title {
     font-size: 1.5rem;
     margin-bottom: 16px;

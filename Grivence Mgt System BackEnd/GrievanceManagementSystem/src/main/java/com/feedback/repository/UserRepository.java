@@ -14,7 +14,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
   /**
    * SQL query to get user by username.
    */
-  String QU = "SELECT * FROM users WHERE user_name = :userName";
+  String MQ= "SELECT * FROM users WHERE user_name = :userName";
+//  String QU = "SELECT * FROM users WHERE user_name = :userName";
+//  String QU = "SELECT * FROM users WHERE user_name='jme@nucleusteq.com'";
 
   /**
    * Checking if the user with the given username is present or not.
@@ -22,7 +24,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
    * @param userName The username to search for.
    * @return The user if found, or null if not.
    */
-  @Query(value = QU, nativeQuery = true)
+  @Query(value = MQ, nativeQuery = true)
   User getUserByUsername(@Param("userName") String userName);
 
   /**

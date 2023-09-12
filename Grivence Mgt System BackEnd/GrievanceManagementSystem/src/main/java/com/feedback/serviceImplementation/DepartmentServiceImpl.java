@@ -47,7 +47,7 @@ public class DepartmentServiceImpl implements DepartmentService{
 
   @Override
   public List<DepartmentListDTO> getAllDepartments() {
-    System.out.println(".........ser1");
+    System.out.println("getting All Department using Effect");
     List<Department> departments = departmentRepository.findAll();
     return departments.stream()
         .map(department -> {

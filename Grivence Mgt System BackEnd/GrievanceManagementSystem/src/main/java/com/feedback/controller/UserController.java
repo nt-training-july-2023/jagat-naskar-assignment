@@ -4,6 +4,11 @@ import com.feedback.entities.User;
 import com.feedback.payloads.user_dto.AddUserDto;
 import com.feedback.payloads.user_dto.LoginDTO;
 import com.feedback.service.UserService;
+
+import java.util.Base64;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.swing.Box.Filler;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +38,19 @@ public class UserController {
   public ResponseEntity<?> addUser(@Valid @RequestBody final AddUserDto user) {
     System.out.println("____________________________________");
     System.out.println("Controller, userDTo = "+user);
-    
     String message = "";
+    if(user.getDepartmentName().equals(null) || user.getName().equals(null) ||
+        user.getPassword().equals(null) || user.getUserName().equals(null) ||
+        user.getUserType().equals(null)) {
+      message = "All the data are not filled.";
+      return ResponseEntity.status(HttpStatus.OK).body(message);
+    }
     if((userService.checkAlreadyExist(user) == true)) {
       message = "UserName(email) already exist!!!";
       return ResponseEntity.status(HttpStatus.OK).body(message);
     }
     User savedUser = null;
     try {
-    	System.out.println("con2");
       savedUser = userService.saveUser(user);
       if(savedUser != null) {
           message = "Saved Successfully!!!";
@@ -52,23 +61,23 @@ public class UserController {
       message = "Could not saved into database!!! " + e.getMessage();
     }
     if (savedUser == null) {
-    	return ResponseEntity.status(HttpStatus.OK).body(message);
+      return ResponseEntity.status(HttpStatus.OK).body(message);
     }
     return ResponseEntity.status(HttpStatus.OK).body("User saved!!!");
   }
-
-  /**
-   * Endpoint for user authentication.
-   * @param user object containing username and password for authentication.
-   * @return True if authentication is successful, false otherwise.
-   */
+  
+  
   @PostMapping("/login")
-  @ResponseBody
   public ResponseEntity<?> getByUserPassword(@RequestBody final LoginDTO user) {
-    String dataAndRole = (String) userService.getByUserAndPassword(
-      user.getEmail(),
-      user.getPassword()
-    );
-    return ResponseEntity.status(HttpStatus.OK).body(dataAndRole);
+      String decodedEmail = new String(Base64.getDecoder().decode(user.getEmail()));
+      String decodedPassword = new String(Base64.getDecoder().decode(user.getPassword()));
+      System.out.println("Email got = "+decodedEmail);
+      System.out.println("Password = "+decodedPassword);
+      String dataAndRole = (String) userService.getByUserAndPassword(
+          decodedEmail,
+          decodedPassword
+      );
+      System.out.println("LOGIM Controller");
+      return ResponseEntity.status(HttpStatus.OK).body(dataAndRole);
   }
 }

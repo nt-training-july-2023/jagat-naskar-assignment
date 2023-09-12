@@ -8,14 +8,14 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
 
 //checking if logged in or not
-export const isLoggedIn = () => {
-  console.log("Jagat");
-  const sessionUserName = sessionStorage.getItem("session_user_name");
-  if(sessionUserName != null && sessionUserName !== ""){
-    return true;
-  }
-  else return false;
-}
+// export const isLoggedIn = () => {
+//   console.log("Jagat");
+//   const sessionUserName = sessionStorage.getItem("session_user_name");
+//   if(sessionUserName != null && sessionUserName !== ""){
+//     return true;
+//   }
+//   else return false;
+// }
 
 export const setLoggedIn = (isLoggedIn) => {
   let l =  isLoggedIn ? "true" : "false";

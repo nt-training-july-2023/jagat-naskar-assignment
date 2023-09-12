@@ -105,6 +105,9 @@ public class UserServiceImpl implements UserService {
   public String getByUserAndPassword(final String userName, final String password) {
     User u1 = null;
     try {
+    	if(!userRepository.existsByUserName(userName)) {
+            return "false";
+          }
       u1 = userRepository.getUserByUsername(userName);
       ERole roll=null;
       if (password.equals(u1.getPassword())) {
@@ -114,6 +117,7 @@ public class UserServiceImpl implements UserService {
         return "true_" + roll.name();
       }
     } catch (Exception e) {
+        return "Error : "+e.getMessage();
     }
     return "false";
   }

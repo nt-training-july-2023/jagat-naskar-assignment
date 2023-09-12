@@ -24,7 +24,7 @@ public class TicketController {
   public ResponseEntity<?> addTickets(@RequestBody final NewTicketDTO ticket) {
     System.out.println("Controller ticket = "+ticket);
     if(ticket == null) {
-      throw new NullPointerFromFrontendException("Ticket not found in the controller layer");
+      throw new NullPointerFromFrontendException("Ticket data not received in the backend.");
     }
     String message = "";
     Ticket savedTicket = null;
