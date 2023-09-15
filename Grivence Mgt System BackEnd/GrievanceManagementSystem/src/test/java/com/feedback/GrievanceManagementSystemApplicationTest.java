@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = GrievanceManagementSystemApplication.class)
@@ -20,8 +21,8 @@ class GrievanceManagementSystemApplicationTest {
   }
   
   @Test
-  void testMain() {
-    assertTrue(true);
-  }
+  public void main() {
+    SpringApplication.run(GrievanceManagementSystemApplication.class);
+	  }
 }
 

@@ -71,27 +71,29 @@ public class UserController {
   }
 
   @PostMapping("/changePassword")
-  public ResponseEntity<String> changePassword(@RequestBody PasswordChangeDTOin request) {
+  public ResponseEntity<String> changePassword(@RequestBody PasswordChangeDTOin request) throws Exception {
     String passwordChanged;
+    System.out.println("Change Password Conntroller 1");
     try {
       passwordChanged = userService.passwordChangedSuccess(request);
       // Add logic to change the password here (e.g., update it in the database)'
+      return ResponseEntity.ok(passwordChanged);
     } catch (Exception e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while changing the password.");
     }
-
-      return ResponseEntity.ok(passwordChanged);
+  
+     
   }
  
   @PostMapping("/login")
-  public ResponseEntity<?> getByUserPassword(@RequestBody final LoginDTO user) {
+  public ResponseEntity<?> Login(@RequestBody final LoginDTO user) {//getByUserPassword
       String decodedEmail = new String(Base64.getDecoder().decode(user.getEmail()));
-      String decodedPassword = new String(Base64.getDecoder().decode(user.getPassword()));
+//      String decodedPassword = new String(Base64.getDecoder().decode(user.getPassword()));
       System.out.println("Email got = "+decodedEmail);
-      System.out.println("Password = "+decodedPassword);
+//      System.out.println("Password = "+decodedPassword);
       String dataAndRole = (String) userService.getByUserAndPassword(
           decodedEmail,
-          decodedPassword
+          user.getPassword()
       );
       System.out.println("LOGIM Controller");
       return ResponseEntity.status(HttpStatus.OK).body(dataAndRole);

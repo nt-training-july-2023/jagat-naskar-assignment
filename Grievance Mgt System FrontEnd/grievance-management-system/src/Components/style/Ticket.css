@@ -7,10 +7,13 @@
 }
 
 .ticket-form {
-  background-color: #81a6ae;
+  /* background-color: #81a6ae; */
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+  border: 2px solid #000;
+  box-shadow: 10px 10px 10px rgba(0.5, 0, 0, 0.6); /* X-offset, Y-offset, blur radius, color */
+ 
 }
 
 h2 {
@@ -29,7 +32,7 @@ textarea {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #756e6e37;
   border-radius: 5px;
   box-sizing: border-box;
   border-color: rgb(3, 2, 2);

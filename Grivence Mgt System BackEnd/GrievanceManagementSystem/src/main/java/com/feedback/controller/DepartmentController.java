@@ -42,7 +42,7 @@ public class DepartmentController {
           throw new RuntimeException("Database save problem");
         }
         
-        String message = "Department " + dept1.getDeptName() + " saved successfully!!!";
+        String message = "Department " + dept1.getDeptName() + "saved successfully!!!";
         return ResponseEntity.status(HttpStatus.OK).body(message);
     } catch (Exception e) {
         String errorMessage = "Problem saving in the database: " + e.getMessage();

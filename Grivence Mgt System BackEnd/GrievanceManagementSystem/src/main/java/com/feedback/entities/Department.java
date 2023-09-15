@@ -40,13 +40,13 @@ public class Department {
    * Mapping Department to User (one to many).
    */
   @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-  private List<User> user = new ArrayList<>();
+  private List<User> users = new ArrayList<>();
   
   /**
    * Mapping Department to Ticket (one to many).
   */
-  @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-  private List<Ticket> ticketList = new ArrayList<>();
+  @OneToMany(mappedBy = "assignedDepartment", cascade = CascadeType.ALL)
+  private List<Ticket> assignedTickets = new ArrayList<>();
  
   /**
    * get Id of the department.
@@ -65,36 +65,36 @@ public class Department {
   }
 
   /**
-   * get List of users.
+   * get List of userss.
    * @return
    */
   public List<User> getUser() {
-    return user;
+    return users;
     }
 
   /**
    * set UserList.
-   * @param user
+   * @param users
    */
-  public void setUser(List<User> user) {
-    this.user = user;
+  public void setUser(List<User> userss) {
+    this.users = userss;
     }
   
   /**
    * field constructor of field.
    * @param deptId
    * @param deptName
-   * @param user
-   * @param ticketList
+   * @param users
+   * @param assignedTickets
   */
-  public Department(int deptId,String deptName,
-    List<User> user,
-    List<Ticket> ticketList) {
+  public Department(int deptIdd,String deptNamee,
+    List<User> userss,
+    List<Ticket> assignedTicketss) {
       super();
-      this.deptId=deptId;
-      this.deptName=deptName;
-      this.user=user;
-      this.ticketList=ticketList;
+      this.deptId=deptIdd;
+      this.deptName=deptNamee;
+      this.users=userss;
+      this.assignedTickets=assignedTicketss;
       }
 
   /**
@@ -102,11 +102,11 @@ public class Department {
    * @return
    */
   public List<Ticket> getTicketList() {
-    return ticketList;
+    return assignedTickets;
     }
 
-  public void setTicketList(List<Ticket> ticketList) {
-    this.ticketList = ticketList;
+  public void setTicketList(List<Ticket> assignedTicketss) {
+    this.assignedTickets = assignedTicketss;
     }
 
   /**

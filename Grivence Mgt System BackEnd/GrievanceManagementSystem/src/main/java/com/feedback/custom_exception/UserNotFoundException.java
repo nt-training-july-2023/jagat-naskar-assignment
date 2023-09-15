@@ -11,6 +11,6 @@ public UserNotFoundException(String userName) {
     }
 
 public UserNotFoundException(int userId) {
-    super("User not found with name: " + userId);
+    super("User not found with id: " + userId);
 }
 }

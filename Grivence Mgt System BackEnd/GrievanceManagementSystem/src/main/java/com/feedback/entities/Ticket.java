@@ -92,24 +92,16 @@ public class Ticket {
     this.ticketDescription = ticketDescription;}
 
   @ManyToOne
-//  @JoinColumn(name = "userId")
-  private User user;
+  @JoinColumn(name = "userId")
+  private User createdBy;
 
   @ManyToOne
-//  @JoinColumn(name = "deptId")
-  private Department department; 
+  @JoinColumn(name = "deptId")
+  private Department assignedDepartment; 
   
-  @OneToMany(mappedBy = "user1", cascade = CascadeType.ALL)
-  private List<Comment> commentList = new ArrayList<>();
+  @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
+  private List<Comment> comments = new ArrayList<>();
   
-  
-  public List<Comment> getCommentList() {
-	return commentList;
-}
-
-public void setCommentList(List<Comment> commentList) {
-	this.commentList = commentList;
-}
 
 /**
    * Default constructor.
@@ -121,7 +113,7 @@ public void setCommentList(List<Comment> commentList) {
    * @return
    */
   public User getUser() {
-    return user;
+    return createdBy;
     }
 
   /**
@@ -129,7 +121,7 @@ public void setCommentList(List<Comment> commentList) {
    * @param user
    */
   public void setUser(User user) {
-    this.user = user;
+    this.createdBy = user;
     }
 
   /**
@@ -137,7 +129,7 @@ public void setCommentList(List<Comment> commentList) {
    * @return
    */
   public Department getDepartment() {
-    return department;
+    return assignedDepartment;
     }
 
   /**\
@@ -145,7 +137,7 @@ public void setCommentList(List<Comment> commentList) {
    * @param department
    */
   public void setDepartment(Department department) {
-    this.department = department;
+    this.assignedDepartment = department;
     }
 
 /**
@@ -307,9 +299,39 @@ public void setCommentList(List<Comment> commentList) {
       this.ticketCreationTime = ticketCreationTime;
       this.lastUpdatedTime = lastUpdatedTime;
       this.ticketDescription = ticketDescription;
-      this.user = user;
-      this.department = department;
-      this.commentList = commentList;
+      this.createdBy = user;
+      this.assignedDepartment = department;
+      this.comments = commentList;
   }
+
+public User getCreatedBy() {
+	return createdBy;
+}
+
+public void setCreatedBy(User createdBy) {
+	this.createdBy = createdBy;
+}
+
+public Department getAssignedDepartment() {
+	return assignedDepartment;
+}
+
+public void setAssignedDepartment(Department assignedDepartment) {
+	this.assignedDepartment = assignedDepartment;
+}
+
+public List<Comment> getComments() {
+	return comments;
+}
+
+public void setComments(List<Comment> comments) {
+	this.comments = comments;
+}
+
+public void setTicketId(Long ticketId) {
+	this.ticketId = ticketId;
+}
+  
+  
 }
 

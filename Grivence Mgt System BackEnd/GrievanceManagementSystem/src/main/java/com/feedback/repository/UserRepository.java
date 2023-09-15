@@ -2,9 +2,7 @@ package com.feedback.repository;
 
 import com.feedback.entities.User;
 
-import org.springframework.core.type.filter.AbstractClassTestingTypeFilter;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -18,18 +16,22 @@ public interface UserRepository extends JpaRepository<User, Integer> {
    * SQL query to get user by username.
    */
   String MQ= "SELECT * FROM users WHERE user_name = :userName";
-//  String QU = "SELECT * FROM users WHERE user_name = :userName";
-//  String QU = "SELECT * FROM users WHERE user_name='jme@nucleusteq.com'";
 
   /**
    * Checking if the user with the given username is present or not.
-   *
    * @param userName The username to search for.
    * @return The user if found, or null if not.
    */
-  @Query(value = MQ, nativeQuery = true)
-  User getUserByUsername(@Param("userName") String userName);
-
+	
+	  @Query(value = MQ, nativeQuery = true) User
+	  getUserByUsername(@Param("userName") String userName);
+	 
+	/*
+	 * @Query("SELECT u FROM User u WHERE u.userName = :userName") User
+	 * findByUserName(@Param("userName") String userName);
+	 */
+//  @Query(value="select User from User where userName=:userName")
+//  User getUserByUserNames(@Param("userName") String userName);
   /**
    * SQL query to dept ID by deptName.
    */

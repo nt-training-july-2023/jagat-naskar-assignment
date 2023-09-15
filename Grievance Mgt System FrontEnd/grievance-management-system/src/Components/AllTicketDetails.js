@@ -18,7 +18,7 @@ const AllTicketDetails = () => {
       ticketTitle: "Sample Ticket",
       ticketType: "Bug",
       createBy: "Jagat Naskar",
-      commitList: ["Commit 1", "Commit 2"],
+      commitList: ["Comment 1", "Comment 2"],
       departmentName: "Development",
     },
     {
@@ -30,7 +30,7 @@ const AllTicketDetails = () => {
       ticketTitle: "Sample Ticket",
       ticketType: "Bug",
       createBy: "Jagat Naskar",
-      commitList: ["Commit 1", "Commit 2"],
+      commitList: ["Comment 1", "Comment 2"],
       departmentName: "Development",
     },
     {
@@ -42,7 +42,7 @@ const AllTicketDetails = () => {
       ticketTitle: "Sample Ticket",
       ticketType: "Bug",
       createBy: "Jagat Naskar",
-      commitList: ["Commit 1", "Commit 2"],
+      commitList: ["Comment 1", "Comment 2"],
       departmentName: "Development",
     },
   ];

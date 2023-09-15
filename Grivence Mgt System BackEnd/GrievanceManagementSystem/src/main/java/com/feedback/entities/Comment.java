@@ -33,17 +33,17 @@ public class Comment {
   */
   @JoinColumn(name = "userId")
   @ManyToOne
-  private User user1;
+  private User user;
   
   public User getUser1() {
-    return user1;
+    return user;
     }
 
-  public void setUser1(User user1) {
-    this.user1 = user1;
+  public void setUser1(User user) {
+    this.user = user;
   }
 
-//  @JoinColumn(name = "userId")
+  @JoinColumn(name = "ticketId")
   @ManyToOne
   private Ticket ticket;
 
@@ -91,15 +91,15 @@ public class Comment {
   * field constructor.
   * @param commentId
   * @param commentMessage
-  * @param user1
+  * @param user
   */
   public Comment(int commentId,
     String commentMessage,
-    User user1) {
+    User user) {
       super();
       this.commentId=commentId;
       this.commentMessage=commentMessage;
-      this.user1=user1;
+      this.user=user;
       }
 
   /**

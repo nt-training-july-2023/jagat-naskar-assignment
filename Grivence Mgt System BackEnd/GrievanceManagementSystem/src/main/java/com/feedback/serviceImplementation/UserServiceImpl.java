@@ -12,6 +12,7 @@ import com.feedback.repository.DepartmentRepository;
 import com.feedback.repository.UserRepository;
 import com.feedback.service.UserService;
 
+import java.util.Base64;
 import java.util.List;
 
 import org.aspectj.lang.reflect.DeclareErrorOrWarning;
@@ -55,8 +56,9 @@ public class UserServiceImpl implements UserService {
     User newUser = new User();
     System.out.println("ser1 "+newUser);
     newUser.setName(user.getName());
-    newUser.setUserName(user.getUserName());
-    newUser.setPassword(user.getPassword());
+    String decodedUserName = new String(Base64.getDecoder().decode(user.getUserName()));
+    newUser.setUserName(decodedUserName);
+    newUser.setPassword(user.getPassword());//encoded password from frontend
     newUser.setfinalPassword(false);
     newUser.setUserType(user.getUserType());
     System.out.println("ser2");
@@ -119,6 +121,8 @@ public class UserServiceImpl implements UserService {
       if (password.equals(u1.getPassword())) {
         if (u1 != null) {
           roll = u1.getUserType();
+          if(u1.getfinalPassword() == false)
+            return "true_" + roll.name()+"cp";
         }
         return "true_" + roll.name();
       }
@@ -140,7 +144,11 @@ public class UserServiceImpl implements UserService {
   }
 
   public String passwordChangedSuccess(PasswordChangeDTOin request) {
-    String userName = request.getUserName();
+	  System.out.println("change pass service 1");
+    String userName = new String(Base64.getDecoder().decode(request.getUserName()));
+//    String oldPassword = new String(Base64.getDecoder().decode(request.getOldPassword()));
+//    String newPassword = new String(Base64.getDecoder().decode(request.getNewPassword()));
+//    String confirmNewPassword = new String(Base64.getDecoder().decode(request.getConfirmNewPassword()));
     String oldPassword = request.getOldPassword();
     String newPassword = request.getNewPassword();
     String confirmNewPassword = request.getConfirmNewPassword();
@@ -150,7 +158,7 @@ public class UserServiceImpl implements UserService {
   user = userRepository.getUserByUsername(userName);
   String userPassword = user.getPassword();
   if(!userPassword.equals(oldPassword)) {
-    return "Incorrect old password ";
+    return "Incorrect old password.";
   }
   if(!newPassword.equals(confirmNewPassword)) {
     return "newPassword does not match with confirm password";
@@ -163,6 +171,7 @@ public class UserServiceImpl implements UserService {
       return "Password changed successfully";
     }
   }
+  System.out.println("change pass ser end.");
     return "Sorry, could not change the password.";
     
     

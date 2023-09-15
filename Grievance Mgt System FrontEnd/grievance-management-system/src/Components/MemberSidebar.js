@@ -13,9 +13,8 @@ import {
   MessageFilled,
   PlusCircleFilled,
   FileAddFilled,
-  UnorderedListOutlined,
+  SecurityScanOutlined,
 } from "@ant-design/icons";
-import { doLogout } from "..";
 
 
 
@@ -60,8 +59,8 @@ function MemberSidebar() {
                 icon: <EyeFilled />,
               },
               {
-                label: <Link to="">ABC4</Link>,
-                icon: <DeleteFilled />,
+                label: <Link to="Password Change">ABC4</Link>,
+                icon: <SecurityScanOutlined />,
               },
               {
                 label: <span onClick={handleLogout}>LogOut</span>,
