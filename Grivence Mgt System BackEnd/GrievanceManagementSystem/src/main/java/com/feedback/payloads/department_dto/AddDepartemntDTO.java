@@ -44,5 +44,9 @@ public class AddDepartemntDTO {
     AddDepartemntDTO other = (AddDepartemntDTO) obj;
     return Objects.equals(deptName, other.deptName);
   }
+
+  
+  
+  
 }
 

@@ -184,7 +184,7 @@ function Ticket() {
           name="comment"
           value={comment}
           disabled
-          onChange={(e) => setStatus(e.target.value)}
+          onChange={(e) => setComment(e.target.value)}
         ></select>
         <button type="submit">Submit</button>
       </form>

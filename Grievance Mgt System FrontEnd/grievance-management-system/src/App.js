@@ -25,6 +25,9 @@ import PrivateRoute from "../src/Components/PrivateRoute"; //
 // import { useAuth } from '../src/Components/AuthContext';
 import { Switch } from "antd";
 import Error404Page from "./Components/Error404Page";
+import UpdateTicket from "./Components/UpdateTicket";
+import AllTicketDetails from "./Components/AllTicketDetails";
+import PasswordChange from "./Components/PasswordChange";
 
 function App() {
   // const { isLoggedIn } = useAuth();
@@ -33,6 +36,7 @@ function App() {
       {
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/changePassword" element={<PasswordChange />} />
           <Route path="login" element={<Login />} />
           <Route element={<PrivateRoute />}>
             <Route path="admin" element={<AdminSidebar />}>
@@ -45,6 +49,7 @@ function App() {
               <Route path="viewDept" element={<AllDepartment />} />
               <Route path="deleteDept" element={<DeleteDepartment />} />
               <Route path="createTicket" element={<Ticket />} />
+              <Route path="changePassword" element={<PasswordChange />} />
               <Route
                 path="allFeedback"
                 element={<div>All Feedback & Greviance Page</div>}
@@ -62,7 +67,7 @@ function App() {
               />
               <Route path="" element={<div></div>} />
               <Route path="createTicket" element={<Ticket />} />
-              <Route path="" element={<div></div>} />
+              <Route path="changePassword" element={<PasswordChange />} />
               <Route path="" element={<div></div>} />
             </Route>
           </Route>
@@ -113,6 +118,25 @@ function App() {
        <AdminSidebar/> 
        <MemberSidebar/>
        <Error404Page/> */}
+       {/* <UpdateTicket/> */}
+       {/* <AllTicketDetails/> */}
+
+
+
+       {/* <Ticket/>
+       <PasswordChange/>
+       <Login/> */}
+       
+
+       {/* <UpdateTicket/>
+       <PasswordChange/> */}
+
+
+      {/* <Routes>
+        <Route path="/" element={<AllTicketDetails />} />
+        <Route path="/update-ticket/:ticketId" element={<UpdateTicket />} />
+      </Routes> */}
+     
     </div>
   );
 }

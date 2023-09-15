@@ -67,14 +67,18 @@ public class User {
   /**
    * Maping Users with tickets -> oneToMany.
    */
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-  private List<Ticket> ticketList = new ArrayList<>();
+  @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
+  private List<Ticket> createdTicket = new ArrayList<>();
   
   /**
    * Mapping User to Comment (one to many).
   */
-  @OneToMany(mappedBy = "user1", cascade = CascadeType.ALL)
-  private List<Comment> commentList = new ArrayList<>();
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private List<Comment> comments = new ArrayList<>();
+  
+  @ManyToOne
+  @JoinColumn(name = "deptId")
+  private Department department;
   
   /**
    * Get the user's unique identifier.
@@ -138,10 +142,6 @@ public class User {
     return userName;
   }
 
-  @ManyToOne
-  @JoinColumn(name = "deptId")
-  private Department department;
-  
 /**
    * Set the user's username.
    *
@@ -208,7 +208,7 @@ public class User {
    * @return
    */
   public List<Ticket> getTicketList() {
-    return ticketList;
+    return createdTicket;
     }
   
   /**
@@ -216,7 +216,7 @@ public class User {
    * @param ticketList.
    */
   public void setTicketList(List<Ticket> ticketList) {
-    this.ticketList = ticketList;
+    this.createdTicket = ticketList;
     }
   
   /**
@@ -224,7 +224,7 @@ public class User {
    * @return
    */
   public List<Comment> getCommentList() {
-    return commentList;
+    return comments;
     }
   
   /**
@@ -232,7 +232,7 @@ public class User {
    * @param commentList
    */
   public void setCommentList(List<Comment> commentList) {
-    this.commentList = commentList;
+    this.comments = commentList;
     }
 
   /**
@@ -253,7 +253,7 @@ public class User {
     String password,
     ERole userType,
     Boolean finalPassword,
-//    List<Ticket> ticketList,
+    List<Ticket> createdTickett,
     List<Comment> commentList,
     Department department) {
       super();
@@ -263,8 +263,8 @@ public class User {
       this.password=password;
       this.userType=userType;
       this.finalPassword=finalPassword;
-//      this.ticketList=ticketList;
-      this.commentList=commentList;
+      this.createdTicket=createdTickett;
+      this.comments=commentList;
       this.department=department;
       }
 
