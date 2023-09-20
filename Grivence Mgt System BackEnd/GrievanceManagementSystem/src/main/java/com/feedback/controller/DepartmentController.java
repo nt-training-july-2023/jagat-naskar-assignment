@@ -4,12 +4,14 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.feedback.payloads.department_dto.AddDepartemntDTO;
 import com.feedback.payloads.department_dto.DepartmentListDTO;
 import com.feedback.service.DepartmentService;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -33,7 +32,11 @@ public class DepartmentController {
   @Autowired
   DepartmentService departmentService;
 
-  @PostMapping("/addDept")
+  public DepartmentController(DepartmentService departmentService2) {
+    this.departmentService = departmentService2;
+}
+
+@PostMapping("/addDept")
   public ResponseEntity<?> addDept(@Valid @RequestBody final AddDepartemntDTO dept1) {
     try {
         if (departmentService.checkAlreadyExist(dept1)) {
@@ -44,7 +47,7 @@ public class DepartmentController {
           throw new RuntimeException("Database save problem");
         }
         
-        String message = "Department " + dept1.getDeptName() + " saved successfully!!!";
+        String message = "Department " + dept1.getDeptName() + "saved successfully!!!";
         return ResponseEntity.status(HttpStatus.OK).body(message);
     } catch (Exception e) {
         String errorMessage = "Problem saving in the database: " + e.getMessage();
@@ -60,6 +63,15 @@ public class DepartmentController {
     } else {
         return ResponseEntity.noContent().build();
     }
+  }
+  
+  @PostMapping("/deleteDept/{deptName}")
+  public ResponseEntity<?> deleteDeptByName(@PathVariable final String deptName) {
+      System.out.println("__________________delete By Dept Name__________________");
+      String deletedDept = departmentService.deleteDept(deptName);
+
+    return ResponseEntity.status(HttpStatus.OK).body(deletedDept);
+      
   }
 }
 

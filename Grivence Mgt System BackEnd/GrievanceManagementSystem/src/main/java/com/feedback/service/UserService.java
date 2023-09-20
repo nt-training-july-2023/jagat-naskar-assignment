@@ -1,7 +1,9 @@
 package com.feedback.service;
 
+import com.feedback.payloads.user_dto.getAllUsersDTOout;
 import com.feedback.entities.User;
 import com.feedback.payloads.user_dto.AddUserDto;
+import com.feedback.payloads.user_dto.PasswordChangeDTOin;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ public interface UserService {
    *
    * @return list of user
    */
-  List<User> getAllUsers();
+  List<getAllUsersDTOout> getAllUsers();
 
   /**
    *
@@ -34,7 +36,7 @@ public interface UserService {
    * @param id
    * @return true or false based on the action
    */
-  Boolean deleteUser(Integer id);
+  String deleteUser(Integer id);
 
   /**
    *
@@ -50,4 +52,11 @@ public interface UserService {
    * @return if the user exist or not by id or by mail.
    */
   boolean checkAlreadyExist(AddUserDto user);
+  
+  /**
+   * interface of passwordChangedSuccess.
+   * @param request
+   * @return true or false;
+   */
+  String passwordChangedSuccess(PasswordChangeDTOin request);
 }

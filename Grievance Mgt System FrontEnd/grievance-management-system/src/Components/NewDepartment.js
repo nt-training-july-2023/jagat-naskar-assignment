@@ -48,7 +48,7 @@ function NewDepartment() {
         <label>
           Department Name: <p className="error">{departmentNameError}</p>{" "}
         </label>
-          <input
+          <input className="ND-input"
             type="text"
             value={formData.deptName}
             onChange={(e) => setFormData({...formData, deptName:e.target.value})}
@@ -60,7 +60,7 @@ function NewDepartment() {
             showAlert &&
             <CustomAlert message={message} handleCloseAlert={handleCloseAlert} />
           }
-        <button type="submit">Add Department</button>
+        <button className='NDsubmit' type="submit">Add Department</button>
       </form>
     </div>
   );

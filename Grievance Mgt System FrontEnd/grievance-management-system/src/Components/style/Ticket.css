@@ -1,74 +1,64 @@
-.tickets-container {
-  width: 100%;
+.Ttickets-container {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  box-sizing: border-box;
+  background-color: rgba(91, 110, 110, 0.428);
+  border-radius: 5px;
+  box-shadow: 10px 10px 10px rgba(0.5, 0, 0, 0.6);
+  justify-content: center;
 }
 
-.ticket-form {
-  background-color: #81a6ae;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.Tsub-structure {
+  display: flex;
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
+.Tsub-structure1 {
+  margin: 2vw;
+}
+.Tticket-form {
+  display: grid;
+  gap: 10px;
 }
 
-label {
-  display: block;
-  margin-bottom: 5px;
+.Tticket-form h2 {
+  margin-bottom: 10px;
+}
+
+.Tticket-form label {
   font-weight: bold;
 }
 
-input[type="text"],
-textarea {
+.Tticket-form input,
+.Tticket-form textarea,
+.Tticket-form select {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-sizing: border-box;
-  border-color: rgb(3, 2, 2);
 }
 
-select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #261c1c;
-  border-radius: 5px;
-  box-sizing: border-box;
-  appearance: none; 
+.Tticket-form select {
+  height: 40px; /* Adjust height as needed */
 }
 
-button[type="submit"] {
-  background-color: #0ab0b0;
-  color: #fff;
+.Tticket-form .Terror {
+  color: rgb(255, 0, 0);
+  font-size: smaller;
+}
+
+.Tticket-form button {
+  background-color: #071866cb;
+  color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  width: 100%;
+  border: 1px solid blue;
 }
 
-button[type="submit"]:hover {
-  background-color: #0056b3;
-}
-
+/* Media Query for Responsive Design */
 @media (max-width: 600px) {
-  .tickets-container {
-    padding: 10px;
-  }
-
-  input[type="text"],
-  textarea,
-  select,
-  button[type="submit"] {
-    width: 100%;
+  .Tticket-form {
+    grid-template-columns: 1fr; /* Change to single column layout on small screens */
   }
 }

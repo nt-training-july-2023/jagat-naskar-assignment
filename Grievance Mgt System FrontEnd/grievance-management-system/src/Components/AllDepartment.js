@@ -10,7 +10,6 @@ function AllDepartment() {
       .then(response => response.json())
       .then(data => setDepartmentList(data))
       .catch(error => console.error('Error:', error));
-      
   }, []);
 
 

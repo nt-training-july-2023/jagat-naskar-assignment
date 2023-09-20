@@ -46,5 +46,9 @@
        flex-direction: column;
        align-items: center;
      }
+     .AlertMessage{
+      color: white;
+      font-style: initial;
+     }
     
    

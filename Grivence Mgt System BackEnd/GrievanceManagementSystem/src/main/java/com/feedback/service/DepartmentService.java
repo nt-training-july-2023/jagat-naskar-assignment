@@ -11,4 +11,5 @@ public interface DepartmentService {
   public boolean checkAlreadyExist(AddDepartemntDTO dept1);
   public Department addDept(AddDepartemntDTO dept);
   List<DepartmentListDTO> getAllDepartments();
+  String deleteDept(String deptName);
 }

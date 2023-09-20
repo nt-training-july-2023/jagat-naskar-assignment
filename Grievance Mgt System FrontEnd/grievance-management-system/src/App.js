@@ -25,6 +25,9 @@ import PrivateRoute from "../src/Components/PrivateRoute"; //
 // import { useAuth } from '../src/Components/AuthContext';
 import { Switch } from "antd";
 import Error404Page from "./Components/Error404Page";
+import UpdateTicket from "./Components/UpdateTicket";
+import AllTicketDetails from "./Components/AllTicketDetails";
+import PasswordChange from "./Components/PasswordChange";
 
 function App() {
   // const { isLoggedIn } = useAuth();
@@ -35,6 +38,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="login" element={<Login />} />
           <Route element={<PrivateRoute />}>
+            <Route path="/changePassword" element={<PasswordChange />} />
             <Route path="admin" element={<AdminSidebar />}>
               <Route index element={<AdminHome />} />
               <Route path="adminHome" element={<AdminHome />} />
@@ -45,6 +49,9 @@ function App() {
               <Route path="viewDept" element={<AllDepartment />} />
               <Route path="deleteDept" element={<DeleteDepartment />} />
               <Route path="createTicket" element={<Ticket />} />
+              <Route path="changePassword" element={<PasswordChange />} />
+              <Route path="tickets" element={<AllTicketDetails />} />
+              <Route path="update-ticket" element={<UpdateTicket />}/>
               <Route
                 path="allFeedback"
                 element={<div>All Feedback & Greviance Page</div>}
@@ -53,26 +60,16 @@ function App() {
             <Route path="member" element={<MemberSidebar />}>
               <Route index element={<div>Member Home Page</div>} />
               <Route path="memberHome" element={<div>Member Home Page</div>} />
-              <Route path="" element={<div></div>} />
-              <Route path="" element={<div></div>} />
-              <Route path="myTickets" element={<div>My Ticket Page</div>} />
-              <Route
-                path="myDeptTicket"
-                element={<div>My Department Ticket Page</div>}
-              />
-              <Route path="" element={<div></div>} />
+              <Route path="tickets" element={<AllTicketDetails />}>
+               
+              </Route>
+              <Route path="update-ticket" element={<UpdateTicket />}/>
               <Route path="createTicket" element={<Ticket />} />
-              <Route path="" element={<div></div>} />
-              <Route path="" element={<div></div>} />
+              <Route path="changePassword" element={<PasswordChange />} />
             </Route>
           </Route>
-         <Route path = "*" element={<Error404Page/>}/> 
+          <Route path="*" element={<Error404Page />} />
         </Routes>
-
-
-
-
-
 
         /* <Routes>
         <Route path="/" element={<Login />} />
@@ -106,13 +103,27 @@ function App() {
 
       {/* <RouterProvider router={routtee} />  */}
       {/* <Practise/> */}
-       {/* <Ticket/> 
+      {/* <Ticket/> 
        <NewUser/>
        <NewDepartment/> 
        <Login/> 
        <AdminSidebar/> 
        <MemberSidebar/>
        <Error404Page/> */}
+      {/* <UpdateTicket/> */}
+      {/* <AllTicketDetails/> */}
+
+      {/* <Ticket/>
+       <PasswordChange/>
+       <Login/> */}
+
+      {/* <UpdateTicket/>
+       <PasswordChange/> */}
+
+      {/* <Routes>
+        <Route path="/" element={<AllTicketDetails />} />
+        <Route path="/update-ticket/:ticketId" element={<UpdateTicket />} />
+      </Routes> */}
     </div>
   );
 }

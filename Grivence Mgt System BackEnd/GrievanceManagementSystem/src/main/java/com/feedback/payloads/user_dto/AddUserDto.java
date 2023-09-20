@@ -11,6 +11,7 @@ public class AddUserDto {
   String password;
   ERole userType;
   String departmentName;
+
   public String getName() {
     return name;
   }
@@ -35,8 +36,6 @@ public class AddUserDto {
   public void setUserType(ERole userType) {
     this.userType = userType;
   }
-  
-  
  
 public String getDepartmentName() {
     return departmentName;
@@ -46,7 +45,10 @@ public void setDepartmentName(String departmentName) {
 }
 @Override
   public String toString() {
-    return "AddUser [name=" + name + ", userName=" + userName + ", password=" + password + ", userType=" + userType
+    return "AddUser [name=" + name 
+        + ", userName=" + userName 
+        + ", password=" + password 
+        + ", userType=" + userType
       + ", department=" + departmentName + "]";
   }
   public AddUserDto(String namee, 

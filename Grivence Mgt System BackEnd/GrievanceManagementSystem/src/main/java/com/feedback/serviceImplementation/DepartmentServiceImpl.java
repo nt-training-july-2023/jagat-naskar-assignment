@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.feedback.custom_exception.DepartmentNotFoundException;
+import com.feedback.custom_exception.UserNotFoundException;
 import com.feedback.entities.Department;
 import com.feedback.payloads.department_dto.AddDepartemntDTO;
 import com.feedback.payloads.department_dto.DepartmentListDTO;
@@ -58,5 +60,16 @@ public class DepartmentServiceImpl implements DepartmentService{
           })
           .collect(Collectors.toList());
   }
+
+@Override
+public String deleteDept(String deptName) {
+	Department d1 = departmentRepository.findByDeptName(deptName);
+	if(d1 != null)
+    {
+        departmentRepository.deleteById(d1.getDeptId());
+        return "Deleted Successfully";
+    }
+    else throw new DepartmentNotFoundException(deptName);
+}
 }
 

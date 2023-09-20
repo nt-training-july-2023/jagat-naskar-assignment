@@ -90,7 +90,7 @@ class UserTest {
       List<Comment> commentList = new ArrayList<>();
       Department department = new Department();
 
-      User user = new User(userId, name, userName, password, userType, finalPassword, commentList, department);
+      User user = new User(userId, name, userName, password, userType, finalPassword, null, commentList, department);
 
       // Check if user is not null
       assertNotNull(user);

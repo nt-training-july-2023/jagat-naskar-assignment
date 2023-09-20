@@ -8,14 +8,15 @@ import {
   HomeFilled,
   DeleteFilled,
   EyeFilled,
-  MehFilled,
+  UserOutlined,
   PoweroffOutlined,
   MessageFilled,
   PlusCircleFilled,
-  FileAddFilled,
-  UnorderedListOutlined,
+  UserAddOutlined,
+  SecurityScanOutlined,
+  UsergroupDeleteOutlined,
 } from "@ant-design/icons";
-import { doLogout } from "..";
+
 
 
 
@@ -37,18 +38,18 @@ function AdminSidebar() {
               { label: <Link to="adminHome">Home</Link>, icon: <HomeFilled /> },
               {
                 label: <Link to="allUsers">All Users</Link>,
-                icon: <MehFilled />,
+                icon: <UserOutlined />,
               },
               {
                 label: <Link to="addUser">Add User</Link>,
-                icon: <FileAddFilled />,
+                icon: <UserAddOutlined />,
               },
               {
                 label: <Link to="deleteUser">Delete User</Link>,
-                icon: <DeleteFilled />,
+                icon: <UsergroupDeleteOutlined />,
               },
               {
-                label: <Link to="allFeedback">All Feedback/Grevience</Link>,
+                label: <Link to="tickets">Tickets</Link>,
                 icon: <MessageFilled />,
               },
               {
@@ -66,6 +67,10 @@ function AdminSidebar() {
               {
                 label: <Link to="deleteDept">Delete Department</Link>,
                 icon: <DeleteFilled />,
+              },
+              {
+                label: <Link to="changePassword">Change Password</Link>,
+                icon: <SecurityScanOutlined />,
               },
               {
                 label: <span onClick={handleLogout}>LogOut</span>,

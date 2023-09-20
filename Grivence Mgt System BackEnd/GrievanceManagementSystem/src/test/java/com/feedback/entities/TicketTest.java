@@ -45,12 +45,12 @@ class TicketTest {
       List<Comment> commentList = new ArrayList<>();
       commentList.add(comment1);
       commentList.add(comment2);
-      ticket.setCommentList(commentList);
+      ticket.setComments(commentList);
 
       // Check if commentList is set correctly
-      assertEquals(2, ticket.getCommentList().size());
-      assertTrue(ticket.getCommentList().contains(comment1));
-      assertTrue(ticket.getCommentList().contains(comment2));
+      assertEquals(2, ticket.getComments().size());
+      assertTrue(ticket.getComments().contains(comment1));
+      assertTrue(ticket.getComments().contains(comment2));
   }
 
   @Test
@@ -92,8 +92,8 @@ class TicketTest {
       assertNull(ticket.getDepartment());
 
       // Check if commentList is an empty list
-      assertNotNull(ticket.getCommentList());
-      assertTrue(ticket.getCommentList().isEmpty());
+      assertNotNull(ticket.getComments());
+      assertTrue(ticket.getComments().isEmpty());
   }
 
   @Test
@@ -128,7 +128,7 @@ class TicketTest {
       assertEquals(ticketDescription, ticket.getTicketDescription());
       assertEquals(user, ticket.getUser());
       assertEquals(department, ticket.getDepartment());
-      assertEquals(commentList, ticket.getCommentList());
+      assertEquals(commentList, ticket.getComments());
   }
 
   @Test
@@ -172,7 +172,7 @@ class TicketTest {
       Comment comment2 = new Comment();
       commentList.add(comment1);
       commentList.add(comment2);
-      ticket.setCommentList(commentList);
+      ticket.setComments(commentList);
 
       // Check if getters return the expected values
       assertEquals(ticketId, ticket.getTicketId());
@@ -185,7 +185,7 @@ class TicketTest {
       assertEquals(ticketDescription, ticket.getTicketDescription());
       assertEquals(user, ticket.getUser());
       assertEquals(department, ticket.getDepartment());
-      assertEquals(commentList, ticket.getCommentList());
+      assertEquals(commentList, ticket.getComments());
   }
 
   @Test
@@ -217,8 +217,8 @@ class TicketTest {
     commentList.add(comment1);
     commentList.add(comment2);
     Ticket ticket = new Ticket();
-    ticket.setCommentList(commentList);
-    assertEquals(commentList, ticket.getCommentList());
+    ticket.setComments(commentList);
+    assertEquals(commentList, ticket.getComments());
   }
 
 

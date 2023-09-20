@@ -4,14 +4,18 @@
   
 }
 
-/* Admin Content */
 .admin-content {
   /* height: 89.3vh; */
   height: 97vh;
   flex: 1 1;
   padding: 0% 4% 4% 4%;
   background-color: #51555c63;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   overflow: scroll;
+  background-image: url("C:\Users\jagat\Downloads\New folder\Grivence Mgt System BackEnd\GrievanceManagementSystem\Images\background8.jpg");
 }
 
 /* Menu Styles */

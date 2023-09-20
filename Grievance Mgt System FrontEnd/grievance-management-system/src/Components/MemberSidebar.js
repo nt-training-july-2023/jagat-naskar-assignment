@@ -13,9 +13,8 @@ import {
   MessageFilled,
   PlusCircleFilled,
   FileAddFilled,
-  UnorderedListOutlined,
+  SecurityScanOutlined,
 } from "@ant-design/icons";
-import { doLogout } from "..";
 
 
 
@@ -36,7 +35,7 @@ function MemberSidebar() {
             items={[
               { label: <Link to="memberHome">Member Home</Link>, icon: <HomeFilled /> },
               {
-                label: <Link to="">ABC1</Link>,
+                label: <Link to="tickets">Ticket</Link>,
                 icon: <MehFilled />,
               },
               {
@@ -60,8 +59,8 @@ function MemberSidebar() {
                 icon: <EyeFilled />,
               },
               {
-                label: <Link to="">ABC4</Link>,
-                icon: <DeleteFilled />,
+                label: <Link to="changePassword">Change Password</Link>,
+                icon: <SecurityScanOutlined />,
               },
               {
                 label: <span onClick={handleLogout}>LogOut</span>,

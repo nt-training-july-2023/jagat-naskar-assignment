@@ -7,7 +7,7 @@ const CustomAlert = ({ message, handleCloseAlert }) => {
     <div className='modal-wrapper'>
     <div className="custom-alert modal-container ">
       <div className="custom-alert-content modal-dialog">
-        <p>{message}</p>
+        <p className='AlertMessage'>{message}</p>
         <button onClick={handleCloseAlert}>Close</button>
       </div>
     </div>

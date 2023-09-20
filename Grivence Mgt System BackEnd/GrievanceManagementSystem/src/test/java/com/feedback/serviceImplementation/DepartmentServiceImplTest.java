@@ -1,7 +1,12 @@
 package com.feedback.serviceImplementation;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -16,6 +21,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.feedback.custom_exception.DepartmentNotFoundException;
 import com.feedback.entities.Department;
 import com.feedback.payloads.department_dto.AddDepartemntDTO;
 import com.feedback.payloads.department_dto.DepartmentListDTO;
@@ -111,5 +117,40 @@ class DepartmentServiceImplTest {
       .collect(Collectors.toList());
 
     assertEquals(expected, result);
+  }
+
+  @Test
+  void testDeleteDept() {
+      // Arrange
+      String deptName = "TestDept";
+      Department mockDepartment = new Department();
+      mockDepartment.setDeptId(1);
+      mockDepartment.setDeptName(deptName);
+
+      when(departmentRepository.findByDeptName(deptName)).thenReturn(mockDepartment);
+
+      // Act
+      String result = departmentService.deleteDept(deptName);
+
+      // Assert
+      assertEquals("Deleted Successfully", result);
+      verify(departmentRepository, times(1)).findByDeptName(deptName);
+      verify(departmentRepository, times(1)).deleteById(1);
+  }
+
+  @Test
+  void testDeleteDeptDepartmentNotFound() {
+      // Arrange
+      String deptName = "NonExistentDept";
+
+      when(departmentRepository.findByDeptName(deptName)).thenReturn(null);
+
+      // Act and Assert
+      assertThrows(DepartmentNotFoundException.class, () -> {
+          departmentService.deleteDept(deptName);
+      });
+
+      verify(departmentRepository, times(1)).findByDeptName(deptName);
+      verify(departmentRepository, never()).deleteById(anyInt());
   }
 }

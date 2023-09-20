@@ -10,7 +10,10 @@ public UserNotFoundException(String userName) {
         super("User not found with name: " + userName);
     }
 
+public UserNotFoundException() {
+    super("Empty user list.");
+}
 public UserNotFoundException(int userId) {
-    super("User not found with name: " + userId);
+    super("User not found with id: " + userId);
 }
 }

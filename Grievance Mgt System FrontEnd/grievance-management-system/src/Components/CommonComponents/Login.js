@@ -22,6 +22,11 @@ const Login = (props) => {
   const handleCloseAlert=()=>{
     setShowAlert(false);
   }
+  const resetForm = () => {
+    setUsername("");
+    setPassword("");
+    setIsSubmitted(false);
+  };
   const handleLogin = async (e) => {
     e.preventDefault();
     //validating
@@ -42,20 +47,34 @@ const Login = (props) => {
       console.log(post);
       try {
         const res = await axios.post(
-          "http://localhost:8080/api/users/login",
-          post
+          "http://localhost:8080/api/users/login", 
+          post,
+          {
+            headers: {
+              email: encodedUsername,
+              password: encodedPassword
+            }
+          }
         );
         console.log(res.data);
         const decodedEmail = atob(post.email);
-        if (res.data === "true_admin") {
+        if(res.data === "true_admin_cp"){
           sessionStorage.setItem("session_user_name", decodedEmail);
-          setLoggedIn("true");
+          navigatee("/changePassword");
+        }
+        else if (res.data === "true_admin") {
+          sessionStorage.setItem("session_user_name", decodedEmail);
+          setLoggedIn("true");//for private route
           navigatee("/admin");
+        }
+        else if(res.data === "true_member_cp"){
+            sessionStorage.setItem("session_user_name", decodedEmail);
+            navigatee("/changePassword");
         }else if (res.data === "true_member") {
           sessionStorage.setItem("session_user_name", decodedEmail);
           navigatee("/member");
         }
-        else if (res.data === "false") {
+        else {
             //showing User is not valid
             setMessage("Invalid Credentials!!!")
             handleShowAlert();
@@ -69,11 +88,7 @@ const Login = (props) => {
     }
   };
 
-  const resetForm = () => {
-    setUsername("");
-    setPassword("");
-    setIsSubmitted(false);
-  };
+  
   return (
     <div className="login-body">
       <div className="head">

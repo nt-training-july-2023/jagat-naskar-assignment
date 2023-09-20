@@ -39,6 +39,7 @@ function Ticket() {
     setTicketTypeError("");
     setTitleError("");
     setDescriptionError("");
+    setAssignToError("");
   };
 
   //setting deptList from backend
@@ -99,7 +100,7 @@ function Ticket() {
           ticketDescription: description,
           deptName: assignTo,
           // senderEmail: btoa(sessionStorage.getItem("session_user_name")) -->later change it
-          senderEmail: btoa("jme@nucleusteq.com")
+          senderEmail: btoa("jme@nucleusteq.com"),
         })
         .then((res) => {
           console.log(res.data);
@@ -110,82 +111,88 @@ function Ticket() {
   };
 
   return (
-    <div className="tickets-container">
-      <form className="ticket-form" onSubmit={handleSubmit}>
+    <div className="Ttickets-container">
+      <form className="Tticket-form" onSubmit={handleSubmit}>
         <h2>Add Ticket Details</h2>
-        <label className="ticketType">Ticket Type</label>
+        <div className="Tsub-structure">
+          <div className="Tsub-structure1">
+            <label className="TticketType">Ticket Type</label>
 
-        <select
-          id="ticketType"
-          name="ticketType"
-          value={ticketType}
-          onChange={(e) => setTicketType(e.target.value)}
-        >
-          {ticketTypeList.map((e) => (
-            <option value={e}>{e}</option>
-          ))}
-        </select>
+            <select
+              id="ticketType"
+              name="ticketType"
+              value={ticketType}
+              onChange={(e) => setTicketType(e.target.value)}
+            >
+              {ticketTypeList.map((e) => (
+                <option value={e}>{e}</option>
+              ))}
+            </select>
 
-        {ticketTypeError && <p className="error">{ticketTypeError}</p>}
+            {ticketTypeError && <p className="Terror">{ticketTypeError}</p>}
 
-        <label className="title">Title</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        {titleError && <p className="error">{titleError}</p>}
+            <label className="Ttitle">Title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            {titleError && <p className="Terror">{titleError}</p>}
 
-        <label className="description">Description</label>
-        <textarea
-          id="description"
-          name="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
-        {descriptionError && <p className="error">{descriptionError}</p>}
+            <label className="Tdescription">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            ></textarea>
+            {descriptionError && <p className="Terror">{descriptionError}</p>}
+          </div>
 
-        <label className="assignTo">Assign To</label>
-        <select
-          id="assignTo"
-          name="assignTo"
-          value={assignTo}
-          onChange={(e) => setAssignTo(e.target.value)}
-        >
-          <option value="" disabled>
-            Select a Department
-          </option>
-          {departmentList.map((e) => (
-            <option key={e.id} value={e.deptName}>
-              {e.deptName}
-            </option>
-          ))}
-        </select>
-        {assignToError && <p className="error">{assignToError}</p>}
+          <div className="Tsub-structure1">
+            <label className="TassignTo">Assign To</label>
+            <select
+              id="assignTo"
+              name="assignTo"
+              value={assignTo}
+              onChange={(e) => setAssignTo(e.target.value)}
+            >
+              <option value="" disabled>
+                Select a Department
+              </option>
+              {departmentList.map((e) => (
+                <option key={e.id} value={e.deptName}>
+                  {e.deptName}
+                </option>
+              ))}
+            </select>
+            {assignToError && <p className="Terror">{assignToError}</p>}
 
-        <label className="status">Status</label>
-        <select
-          id="status"
-          name="status"
-          value={status}
-          disabled
-          onChange={(e) => setStatus(e.target.value)}
-        >
-          {statusList.map((e) => (
-            <option value={e}>{e}</option>
-          ))}
-        </select>
+            <label className="Tstatus">Status</label>
+            <select
+              id="status"
+              name="status"
+              value={status}
+              disabled
+              onChange={(e) => setStatus(e.target.value)}
+            >
+              {statusList.map((e) => (
+                <option value={e}>{e}</option>
+              ))}
+            </select>
 
-        <label className="comment">Comment</label>
-        <select
-          id="comment"
-          name="comment"
-          value={comment}
-          disabled
-          onChange={(e) => setStatus(e.target.value)}
-        ></select>
+            <label className="Tcomment">Comment</label>
+            <select
+              id="comment"
+              name="comment"
+              value={comment}
+              disabled
+              onChange={(e) => setComment(e.target.value)}
+            ></select>
+          </div>
+        </div>
         <button type="submit">Submit</button>
       </form>
     </div>
